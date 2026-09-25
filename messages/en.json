@@ -1,0 +1,62 @@
+{
+  "Metadata": {
+    "title": "Lucas Vieira · Full Stack Developer | Applied AI",
+    "description": "Full stack developer specialized in applied AI: agents, RAG and LLMs in production, built on TypeScript, React and NestJS."
+  },
+  "Nav": {
+    "label": "Main navigation",
+    "skip": "Skip to content",
+    "home": "Lucas Vieira, back to top",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "about": "About",
+    "projects": "Projects",
+    "contributions": "Contributions",
+    "experience": "Experience",
+    "stack": "Stack",
+    "contact": "Contact"
+  },
+  "Theme": {
+    "toggle": "Toggle light and dark theme"
+  },
+  "Locale": {
+    "label": "Language",
+    "pt": "Português",
+    "en": "English"
+  },
+  "Hero": {
+    "available": "Open to opportunities",
+    "role": "Full Stack Developer · <em>Applied AI</em> (Agents & RAG)",
+    "valueProp": "I build AI agents and full stack applications that deliver business results, like cutting software integrations from <result>8 weeks to 1</result>.",
+    "ctaProjects": "See projects",
+    "ctaContact": "Get in touch",
+    "location": "Palmas, Brazil · open to remote"
+  },
+  "Sections": {
+    "about": "About",
+    "projects": "Projects",
+    "contributions": "Contributions",
+    "experience": "Experience",
+    "stack": "Stack & skills",
+    "testimonial": "Recommendation",
+    "contact": "Contact"
+  },
+  "Contact": {
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "resumePt": "Currículo (PT)",
+    "resumeEn": "Résumé (EN)",
+    "whatsappMessage": "Hi Lucas, I saw your portfolio and would like to talk about an opportunity."
+  },
+  "Footer": {
+    "rights": "© {year} Lucas Vieira Bueno e Silva",
+    "builtWith": "Built with Next.js, TypeScript and Tailwind CSS.",
+    "linksLabel": "Contact links"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "back": "Back to home"
+  }
+}

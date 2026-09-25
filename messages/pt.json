@@ -1,0 +1,62 @@
+{
+  "Metadata": {
+    "title": "Lucas Vieira · Desenvolvedor Full Stack | IA Aplicada",
+    "description": "Desenvolvedor Full Stack especializado em IA aplicada: agentes, RAG e LLMs em produção, sobre uma base de TypeScript, React e NestJS."
+  },
+  "Nav": {
+    "label": "Navegação principal",
+    "skip": "Pular para o conteúdo",
+    "home": "Lucas Vieira, voltar ao início",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "about": "Sobre",
+    "projects": "Projetos",
+    "contributions": "Contribuições",
+    "experience": "Experiência",
+    "stack": "Stack",
+    "contact": "Contato"
+  },
+  "Theme": {
+    "toggle": "Alternar entre tema claro e escuro"
+  },
+  "Locale": {
+    "label": "Idioma",
+    "pt": "Português",
+    "en": "English"
+  },
+  "Hero": {
+    "available": "Disponível para oportunidades",
+    "role": "Desenvolvedor Full Stack · <em>IA Aplicada</em> (Agentes & RAG)",
+    "valueProp": "Construo agentes de IA e aplicações full stack que viram resultado de negócio, como reduzir integrações de software de <result>8 semanas para 1</result>.",
+    "ctaProjects": "Ver projetos",
+    "ctaContact": "Contato",
+    "location": "Palmas, TO · Brasil · aberto a remoto"
+  },
+  "Sections": {
+    "about": "Sobre",
+    "projects": "Meus projetos",
+    "contributions": "Contribuições",
+    "experience": "Experiência",
+    "stack": "Stack & habilidades",
+    "testimonial": "Depoimento",
+    "contact": "Contato"
+  },
+  "Contact": {
+    "email": "E-mail",
+    "whatsapp": "WhatsApp",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "resumePt": "Currículo (PT)",
+    "resumeEn": "Résumé (EN)",
+    "whatsappMessage": "Olá Lucas, vi seu portfólio e gostaria de conversar sobre uma oportunidade."
+  },
+  "Footer": {
+    "rights": "© {year} Lucas Vieira Bueno e Silva",
+    "builtWith": "Feito com Next.js, TypeScript e Tailwind CSS.",
+    "linksLabel": "Contatos"
+  },
+  "NotFound": {
+    "title": "Página não encontrada",
+    "back": "Voltar ao início"
+  }
+}

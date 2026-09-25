@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Lint, typecheck, build e links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run build
+
+      - name: Sobe o build de produção
+        run: |
+          npx next start -p 3000 &
+          npx --yes wait-on@8 --timeout 60000 http://localhost:3000/pt
+
+      # Verifica todos os links (externos, âncoras e PDFs) das duas versões do site.
+      - name: Verifica links quebrados
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config lychee.toml http://localhost:3000/pt http://localhost:3000/en
+          fail: true

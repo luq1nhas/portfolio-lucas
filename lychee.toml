@@ -1,0 +1,15 @@
+# Verificação de links quebrados (roda na CI contra o build de produção).
+
+# 999: o LinkedIn responde 999 para robôs, mesmo com o perfil no ar.
+# 429: limite de requisições de terceiros não significa link quebrado.
+accept = ["200..=299", "429", "999"]
+
+max_retries = 3
+retry_wait_time = 5
+# A demo do Nexus roda no plano gratuito do Render e pode levar alguns segundos para acordar.
+timeout = 60
+
+exclude = [
+  # Script do Vercel Analytics: só existe no ambiente da Vercel.
+  "/_vercel/",
+]

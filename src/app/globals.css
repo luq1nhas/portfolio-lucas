@@ -1,26 +1,105 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* O tema vem de data-theme em <html> (definido antes da pintura por ThemeScript). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ── Tokens: "rede de agentes" ─────────────────────────────────────────────
+   signal = IA / interação · result = métricas e resultados · tag = categorias */
+:root,
+[data-theme="dark"] {
+  --bg: #0a0c10;
+  --surface: #11151c;
+  --surface-2: #171c25;
+  --border: #222834;
+  --fg: #e8eaef;
+  --muted: #96a0b0;
+  --signal: #4fe3c1;
+  --signal-soft: rgb(79 227 193 / 0.12);
+  --on-signal: #06140f;
+  --result: #f4b350;
+  --result-soft: rgb(244 179 80 / 0.1);
+  --tag: #a99bff;
+  --edge: #2c3442;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: #f6f5f1;
+  --surface: #ffffff;
+  --surface-2: #efede7;
+  --border: #e2e0d8;
+  --fg: #14161b;
+  --muted: #5a6170;
+  --signal: #0b7a64;
+  --signal-soft: rgb(11 122 100 / 0.08);
+  --on-signal: #ffffff;
+  --result: #a35a00;
+  --result-soft: rgb(163 90 0 / 0.08);
+  --tag: #5b4bd6;
+  --edge: #d3d0c6;
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-signal: var(--signal);
+  --color-signal-soft: var(--signal-soft);
+  --color-on-signal: var(--on-signal);
+  --color-result: var(--result);
+  --color-result-soft: var(--result-soft);
+  --color-tag: var(--tag);
+  --color-edge: var(--edge);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    background: var(--bg);
+    scroll-padding-top: 5rem; /* compensa o header fixo nas âncoras */
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background: var(--signal);
+    color: var(--on-signal);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Pulso de sinal percorrendo as arestas da rede (só com movimento permitido). */
+@keyframes signal-flow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .edge-pulse {
+    stroke-dasharray: 4 16;
+    animation: signal-flow 2.4s linear infinite;
+  }
 }
