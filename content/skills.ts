@@ -47,7 +47,7 @@ export const skillTiers: SkillTier[] = [
       },
       {
         label: { pt: "Agentes com tools", en: "Tool-using agents" },
-        evidence: ["iron", "nexus"],
+        evidence: ["iron"],
       },
       {
         label: {
