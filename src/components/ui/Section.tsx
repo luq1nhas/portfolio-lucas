@@ -6,11 +6,12 @@ import { cn } from "@/lib/cn";
 type Props = {
   id: SectionId;
   title: string;
+  intro?: string;
   children?: ReactNode;
   className?: string;
 };
 
-export function Section({ id, title, children, className }: Props) {
+export function Section({ id, title, intro, children, className }: Props) {
   const index = String(sectionIds.indexOf(id) + 1).padStart(2, "0");
 
   return (
@@ -32,7 +33,10 @@ export function Section({ id, title, children, className }: Props) {
           </span>
           {title}
         </h2>
-        {children}
+        {intro && (
+          <p className="mt-4 max-w-2xl text-pretty text-muted">{intro}</p>
+        )}
+        <div className="mt-10 sm:mt-12">{children}</div>
       </div>
     </section>
   );

@@ -2,7 +2,7 @@
 
 Landing page de portfólio de **Lucas Vieira**, Desenvolvedor Full Stack especializado em IA aplicada (agentes, RAG e LLMs em produção).
 
-> 🚧 Em construção, por etapas: **estrutura** ✅ → conteúdo → i18n → interatividade → otimização.
+> 🚧 Em construção, por etapas: **estrutura** ✅ → **conteúdo** ✅ → i18n → interatividade → otimização.
 
 ## Stack
 
@@ -18,22 +18,29 @@ Landing page de portfólio de **Lucas Vieira**, Desenvolvedor Full Stack especia
 ## Arquitetura
 
 ```
-content/            dados tipados (perfil, projetos, experiências, stack)
+content/            dados tipados: projetos, experiências, stack (com mapa de evidências), depoimento
 messages/           textos de interface por idioma (pt.json, en.json)
+scripts/            verificações de build (placeholders)
 src/
 ├─ proxy.ts         detecção de idioma e redirecionamento de "/" (antigo middleware)
 ├─ i18n/            configuração de rotas, navegação e carregamento de mensagens
 ├─ app/[locale]/    layout raiz por idioma e a landing page (SSG: /pt e /en)
+│  ├─ cases/[slug]/          estudo de caso por URL direta (landing + painel aberto)
+│  └─ @modal/(.)cases/[slug]/ o mesmo estudo interceptado como painel, sem sair da página
 ├─ components/
 │  ├─ layout/       header, navegação por âncoras, tema, idioma, rodapé
 │  ├─ hero/         hero e a "rede de agentes" (SVG estático / cena 3D)
+│  ├─ project/      cards, filtro por categoria, painel e estudo de caso (STAR)
+│  ├─ sections/     seções da landing (sobre, projetos, experiência, stack…)
 │  └─ ui/           primitivas (Section, ícones)
 └─ lib/             utilitários (links, URL do site, ids das seções)
 ```
 
 **Decisões**
 
-- **Landing page de uma página só.** O header navega por âncoras e as páginas de detalhes dos projetos abrem como overlay, sem sair da página.
+- **Landing page de uma página só.** O header navega por âncoras. "Ver detalhes" abre o estudo de caso num painel por cima da página, usando rotas paralelas + interceptadas: o painel tem URL própria (`/pt/cases/nexus`), que pode ser compartilhada e é contada como visualização pelo Vercel Analytics sem eventos pagos. Acesso direto pela URL renderiza a landing com o painel aberto.
+- **Mapa de evidências.** Cada skill em `content/skills.ts` aponta para os projetos e experiências em que foi usada. Clicar numa tecnologia mostra essa prova de uso. Skill sem evidência não é exibida (exceto "Em aprendizado").
+- **Placeholders explícitos.** Informação pendente é marcada com `pending("NOME")`: aparece como {{NOME}} em desenvolvimento e some em produção. O script `check:placeholders` falha a CI se algum chegar ao HTML final.
 - **Conteúdo separado da interface.** Projetos, experiências e stack ficam em `content/` como dados tipados. Os textos de interface ficam em `messages/`. Uma chave de tradução inexistente é erro de compilação (veja `src/i18n/global.d.ts`).
 - **Tema sem "piscar".** Um script inline aplica o tema salvo antes da primeira pintura. O tema padrão é o escuro.
 - **Renderização estática.** As duas versões de idioma são pré-renderizadas no build.
@@ -47,12 +54,13 @@ npm install
 npm run dev          # http://localhost:3000 → redireciona para /pt ou /en
 ```
 
-| Script                 | O que faz                                   |
-| ---------------------- | ------------------------------------------- |
-| `npm run build`        | build de produção                           |
-| `npm run lint`         | ESLint                                      |
-| `npm run typecheck`    | gera os tipos de rota e roda `tsc --noEmit` |
-| `npm run format:check` | Prettier                                    |
+| Script                       | O que faz                                   |
+| ---------------------------- | ------------------------------------------- |
+| `npm run build`              | build de produção                           |
+| `npm run lint`               | ESLint                                      |
+| `npm run typecheck`          | gera os tipos de rota e roda `tsc --noEmit` |
+| `npm run format:check`       | Prettier                                    |
+| `npm run check:placeholders` | falha se houver {{placeholder}} no build    |
 
 ### Variáveis de ambiente
 

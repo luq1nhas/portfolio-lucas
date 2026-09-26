@@ -1,7 +1,8 @@
 {
   "Metadata": {
     "title": "Lucas Vieira · Full Stack Developer | Applied AI",
-    "description": "Full stack developer specialized in applied AI: agents, RAG and LLMs in production, built on TypeScript, React and NestJS."
+    "description": "Full stack developer specialized in applied AI: agents, RAG and LLMs in production, built on TypeScript, React and NestJS.",
+    "caseTitle": "{project} · Case study · Lucas Vieira"
   },
   "Nav": {
     "label": "Main navigation",
@@ -41,6 +42,80 @@
     "testimonial": "Recommendation",
     "contact": "Contact"
   },
+  "Intros": {
+    "projects": "Built by me, end to end.",
+    "contributions": "Professional projects I worked on. The code is private; each card separates what I did from what the platform itself offers.",
+    "stack": "Click a technology to see which projects and roles it was used in.",
+    "contact": "Open to new opportunities: full-time, contract, remote, international or freelance."
+  },
+  "About": {
+    "body": "I'm a full stack developer specialized in <strong>applied AI</strong>. I build agents with LangChain, LangGraph, Azure OpenAI and AWS Bedrock, plus RAG and embedding pipelines, on a foundation of TypeScript, React and NestJS. I ship end-to-end features in multi-tenant production systems, from a B2B SaaS for AI agents to a GovTech platform for municipalities, backed by automated tests, CI/CD and Clean Architecture. I've worked at an innovation consultancy (MJV), a large tech company (CI&T) and a business software company (Max Data).",
+    "education": "Education",
+    "educationValue": "B.S. in Software Engineering · Ulbra Palmas",
+    "educationPeriod": "2021 – Dec 2026 (expected)",
+    "languages": "Languages",
+    "languagesValue": "Portuguese (native) · English (intermediate) · Spanish (basic)",
+    "location": "Location",
+    "locationValue": "Palmas, Tocantins, Brazil · open to remote"
+  },
+  "Project": {
+    "personal": "Personal project",
+    "stack": "Stack",
+    "responsibilities": "What I did",
+    "tags": "Categories",
+    "moreStack": "+{count}",
+    "moreStackLabel": "and {count} more technologies",
+    "result": "Result",
+    "viewDetails": "View details",
+    "viewDetailsOf": "View details of {project}",
+    "viewDemo": "Live demo",
+    "coldStart": "The first load may take a few seconds.",
+    "flow": "How it works",
+    "sourceCorporate": "Company project — private code",
+    "sourceInterview": "Code available for the technical interview",
+    "sourceInterviewCta": "Request access",
+    "sourceOpen": "Open source",
+    "viewRepo": "View repository",
+    "upcoming": "Next project",
+    "filterLabel": "Filter by category",
+    "filterAll": "All",
+    "filterCount": "{count, plural, one {# project} other {# projects}}"
+  },
+  "Case": {
+    "label": "Case study",
+    "starLabel": "Summary (STAR method)",
+    "close": "Close",
+    "situation": "Situation",
+    "task": "Task",
+    "action": "Action",
+    "result": "Result",
+    "responsibilities": "What I did",
+    "platformHighlights": "Platform highlights",
+    "platformNote": "Features of the platform and the team, not individual responsibilities.",
+    "actionSeeBelow": "Detailed under “What I did” below."
+  },
+  "Experience": {
+    "parallel": "In parallel",
+    "relatedProjects": "Projects",
+    "current": "Present"
+  },
+  "Stack": {
+    "tier_ai": "Core expertise: applied AI",
+    "tier_base": "Full stack foundation",
+    "tier_devops": "DevOps, cloud & quality",
+    "tier_architecture": "Architecture & security",
+    "tier_also": "Also worked with",
+    "tier_learning": "Currently learning",
+    "usedIn": "{skill} was used in",
+    "hint": "Select a technology above to see where it was used.",
+    "project": "Project",
+    "experience": "Role",
+    "clear": "Clear selection"
+  },
+  "Testimonial": {
+    "linkedin": "{name} on LinkedIn",
+    "translated": "Translated from the original in Portuguese."
+  },
   "Contact": {
     "email": "Email",
     "whatsapp": "WhatsApp",
@@ -48,12 +123,37 @@
     "github": "GitHub",
     "resumePt": "Currículo (PT)",
     "resumeEn": "Résumé (EN)",
-    "whatsappMessage": "Hi Lucas, I saw your portfolio and would like to talk about an opportunity."
+    "whatsappMessage": "Hi Lucas, I saw your portfolio and would like to talk about an opportunity.",
+    "copyEmail": "Copy email",
+    "copied": "Email copied",
+    "title": "Let's talk"
   },
   "Footer": {
     "rights": "© {year} Lucas Vieira Bueno e Silva",
     "builtWith": "Built with Next.js, TypeScript and Tailwind CSS.",
     "linksLabel": "Contact links"
+  },
+  "Tags": {
+    "genai": "Generative AI",
+    "aiAgents": "AI Agents",
+    "rag": "RAG",
+    "promptEngineering": "Prompt Engineering",
+    "semanticSearch": "Semantic Search",
+    "aiEmbeddings": "AI / Embeddings",
+    "ocr": "OCR",
+    "edtech": "EdTech",
+    "govtech": "GovTech",
+    "saasB2b": "B2B SaaS",
+    "multiTenant": "Multi-tenant",
+    "microservices": "Microservices",
+    "fullStack": "Full Stack",
+    "frontend": "Frontend",
+    "accessibility": "Accessibility",
+    "audit": "Audit",
+    "performance": "Performance",
+    "batchProcessing": "Batch Processing",
+    "enterpriseSystem": "Enterprise System",
+    "rewrite": "Rewrite"
   },
   "NotFound": {
     "title": "Page not found",
