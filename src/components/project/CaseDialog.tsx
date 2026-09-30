@@ -103,7 +103,13 @@ export function CaseDialog({
             <X className="size-5" aria-hidden />
           </button>
         </div>
-        <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-8 sm:px-8">
+        {/* Focável: sem links no conteúdo, o teclado ainda precisa conseguir rolar. */}
+        <div
+          tabIndex={0}
+          role="region"
+          aria-labelledby={titleId}
+          className="flex-1 overflow-y-auto overscroll-contain px-5 py-8 focus-visible:outline-offset-[-4px] sm:px-8"
+        >
           {children}
         </div>
       </div>

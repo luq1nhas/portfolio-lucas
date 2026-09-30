@@ -10,8 +10,34 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  commits:
+    name: Conventional Commits
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Valida as mensagens do PR
+        if: github.event_name == 'pull_request'
+        run: >
+          npx commitlint --verbose
+          --from ${{ github.event.pull_request.base.sha }}
+          --to ${{ github.event.pull_request.head.sha }}
+
+      - name: Valida o último commit
+        if: github.event_name == 'push'
+        run: npx commitlint --verbose --last
+
   quality:
-    name: Lint, typecheck, build e links
+    name: Qualidade, testes, links e Lighthouse
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -22,10 +48,14 @@ jobs:
           cache: npm
 
       - run: npm ci
+
+      # Estático: formatação, lint, tipos, traduções e regras de conteúdo do brief.
       - run: npm run format:check
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run check:i18n
+      - run: npm test
+
       - run: npm run build
       - run: npm run check:placeholders
 
@@ -34,9 +64,27 @@ jobs:
           npx next start -p 3000 &
           npx --yes wait-on@8 --timeout 60000 http://localhost:3000/pt
 
-      # Verifica todos os links (externos, âncoras e PDFs) das duas versões do site.
+      # Todos os links (externos, âncoras e PDFs) das duas versões do site.
       - name: Verifica links quebrados
         uses: lycheeverse/lychee-action@v2
         with:
           args: --config lychee.toml http://localhost:3000/pt http://localhost:3000/en
           fail: true
+
+      # Fluxos principais e acessibilidade (axe-core, WCAG 2.2 AA) em desktop e celular.
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+
+      # Lighthouse: mínimo de 90 em todas as categorias (mediana de 3 execuções).
+      - run: npx lhci autorun
+
+      - name: Relatórios
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorios
+          path: |
+            playwright-report/
+            .lighthouseci/
+          if-no-files-found: ignore
+          retention-days: 14

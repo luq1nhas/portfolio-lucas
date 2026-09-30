@@ -3,7 +3,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from "next-intl/server";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { MotionProvider } from "@/components/layout/MotionProvider";
@@ -13,16 +17,23 @@ import { htmlLang, routing } from "@/i18n/routing";
 import { baseOpenGraph, siteUrl } from "@/lib/site";
 import "../globals.css";
 
+// Namespaces usados por componentes de cliente. Só eles vão para o navegador;
+// o resto do texto é renderizado no servidor.
+const clientNamespaces = ["Locale", "Project", "Contact", "Stack"] as const;
+
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+// Só a fonte do texto principal é pré-carregada; mono e serifada entram com swap.
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  preload: false,
 });
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
   subsets: ["latin"],
   weight: "400",
   style: "italic",
+  preload: false,
 });
 
 export function generateStaticParams() {
@@ -67,6 +78,10 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
   const t = await getTranslations("Nav");
+  const messages = await getMessages();
+  const clientMessages = Object.fromEntries(
+    clientNamespaces.map((ns) => [ns, messages[ns]]),
+  );
 
   return (
     <html
@@ -79,7 +94,7 @@ export default async function LocaleLayout({
         <ThemeScript />
       </head>
       <body className="flex min-h-dvh flex-col">
-        <NextIntlClientProvider>
+        <NextIntlClientProvider messages={clientMessages}>
           <MotionProvider>
             <a
               href="#main"
@@ -97,7 +112,8 @@ export default async function LocaleLayout({
             <RevealObserver />
           </MotionProvider>
         </NextIntlClientProvider>
-        <Analytics />
+        {/* O script de métricas só existe no ambiente da Vercel. */}
+        {process.env.VERCEL && <Analytics />}
       </body>
     </html>
   );

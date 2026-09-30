@@ -26,7 +26,6 @@ export function LocaleSwitcher() {
             scroll={false}
             hrefLang={htmlLang[locale]}
             lang={htmlLang[locale]}
-            aria-label={t(locale)}
             aria-current={active ? "true" : undefined}
             className={cn(
               "rounded-full px-2.5 py-1 uppercase transition-colors",
@@ -34,6 +33,7 @@ export function LocaleSwitcher() {
             )}
           >
             {locale}
+            <span className="sr-only"> ({t(locale)})</span>
           </Link>
         );
       })}

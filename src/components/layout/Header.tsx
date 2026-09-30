@@ -14,11 +14,11 @@ export async function Header() {
       <div className="relative mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6">
         <a
           href="#top"
-          aria-label={t("home")}
           className="flex items-center gap-2 font-mono text-sm font-semibold tracking-tight"
         >
           <span aria-hidden className="size-2.5 rounded-full bg-signal" />
           lucas.vieira
+          <span className="sr-only">, {t("home")}</span>
         </a>
 
         <div className="ml-auto flex items-center gap-2">

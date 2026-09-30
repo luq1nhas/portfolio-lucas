@@ -1,80 +1,96 @@
-# lucas.vieira: portfólio
+# lucas.vieira: portfolio
 
-Landing page de portfólio de **Lucas Vieira**, Desenvolvedor Full Stack especializado em IA aplicada (agentes, RAG e LLMs em produção).
+**English** · [Português](README.pt-BR.md)
 
-> 🚧 Em construção, por etapas: **estrutura** ✅ → **conteúdo** ✅ → **i18n** ✅ → **interatividade** ✅ → otimização.
+Single-page portfolio for **Lucas Vieira**, a Full Stack Developer specialized in applied AI (agents, RAG and LLMs in production), available in Portuguese and English.
+
+<!-- Live: add the production URL here after the first deploy. -->
+
+| Lighthouse (mobile, simulated 4G) | Lighthouse (desktop)  | Accessibility (axe-core) |
+| --------------------------------- | --------------------- | ------------------------ |
+| 94 · 100 · 100 · 100              | 100 · 100 · 100 · 100 | 0 WCAG 2.2 AA violations |
+
+<sub>Performance · Accessibility · Best Practices · SEO, measured on the production build for `/pt` and `/en`. CI fails below 90 in any category.</sub>
 
 ## Stack
 
-| Camada    | Escolha                                                                 |
-| --------- | ----------------------------------------------------------------------- |
-| Framework | Next.js 16 (App Router, Turbopack), React 19, TypeScript strict         |
-| Estilo    | Tailwind CSS v4 com tokens em CSS custom properties (tema claro/escuro) |
-| i18n      | next-intl, com rotas `/pt` e `/en`, hreflang e chaves tipadas           |
-| Animação  | Motion (antigo Framer Motion) e, no hero, React Three Fiber             |
-| Métricas  | Vercel Analytics (sem cookies)                                          |
-| Qualidade | ESLint, Prettier, `tsc`, lychee (links quebrados) no GitHub Actions     |
+| Layer       | Choice                                                                          |
+| ----------- | ------------------------------------------------------------------------------- |
+| Framework   | Next.js 16 (App Router, Turbopack), React 19, strict TypeScript                 |
+| Styling     | Tailwind CSS v4 with design tokens as CSS custom properties (light/dark themes) |
+| i18n        | next-intl: `/pt` and `/en` routes, hreflang, type-checked message keys          |
+| Motion & 3D | Motion (formerly Framer Motion) and React Three Fiber in the hero               |
+| Analytics   | Vercel Analytics (cookie-free)                                                  |
+| Quality     | ESLint, Prettier, Vitest, Playwright + axe-core, Lighthouse CI, lychee          |
 
-## Arquitetura
+## Architecture
 
 ```
-content/            dados tipados: projetos, experiências, stack (com mapa de evidências),
-                    diagramas de arquitetura e depoimento
-messages/           textos de interface por idioma (pt.json, en.json)
-scripts/            verificações de build (placeholders)
+content/               typed data: projects, experience, skills (with evidence map),
+                       architecture diagrams and testimonial, in both languages
+messages/              UI strings per language (pt.json, en.json)
+e2e/                   Playwright tests: flows, i18n, links and accessibility
+scripts/               build checks (placeholders, translation parity)
 src/
-├─ proxy.ts         detecção de idioma e redirecionamento de "/" (antigo middleware)
-├─ i18n/            configuração de rotas, navegação e carregamento de mensagens
-├─ app/[locale]/    layout raiz por idioma e a landing page (SSG: /pt e /en)
-│  ├─ cases/[slug]/          estudo de caso por URL direta (landing + painel aberto)
-│  └─ @modal/(.)cases/[slug]/ o mesmo estudo interceptado como painel, sem sair da página
+├─ proxy.ts            language detection and "/" redirect (formerly middleware)
+├─ i18n/               routing, navigation and message loading
+├─ app/[locale]/       per-language root layout and the landing page (SSG)
+│  ├─ cases/[slug]/            case study by direct URL (landing + open panel)
+│  ├─ @modal/(.)cases/[slug]/  the same case study intercepted as an overlay
+│  └─ opengraph-image.tsx      share image per language (and per case study)
 ├─ components/
-│  ├─ layout/       header, navegação por âncoras, tema, idioma, rodapé
-│  ├─ hero/         hero e a "rede de agentes" (SVG estático / cena 3D)
-│  ├─ project/      cards, filtro por categoria, painel e estudo de caso (STAR)
-│  ├─ sections/     seções da landing (sobre, projetos, experiência, stack…)
-│  └─ ui/           primitivas (Section, ícones)
-└─ lib/             utilitários (links, URL do site, ids das seções)
+│  ├─ layout/          header, anchor navigation, theme, language, footer
+│  ├─ hero/            hero and the "agent network" (SVG + lazy 3D scene)
+│  ├─ project/         cards, category filter, case study panel, diagrams
+│  ├─ sections/        landing sections (about, projects, experience, stack…)
+│  └─ ui/              primitives (Section, pills, icons, placeholder)
+└─ lib/                helpers (links, site URL, Open Graph rendering)
 ```
 
-**Decisões**
+### Key decisions
 
-- **Landing page de uma página só.** O header navega por âncoras. "Ver detalhes" abre o estudo de caso num painel por cima da página, usando rotas paralelas + interceptadas: o painel tem URL própria (`/pt/cases/nexus`), que pode ser compartilhada e é contada como visualização pelo Vercel Analytics sem eventos pagos. Acesso direto pela URL renderiza a landing com o painel aberto.
-- **Mapa de evidências.** Cada skill em `content/skills.ts` aponta para os projetos e experiências em que foi usada. Clicar numa tecnologia mostra essa prova de uso. Skill sem evidência não é exibida (exceto "Em aprendizado").
-- **Placeholders explícitos.** Informação pendente é marcada com `pending("NOME")`: aparece como {{NOME}} em desenvolvimento e some em produção. O script `check:placeholders` falha a CI se algum chegar ao HTML final.
-- **Conteúdo separado da interface.** Projetos, experiências e stack ficam em `content/` como dados tipados. Os textos de interface ficam em `messages/`. Uma chave de tradução inexistente é erro de compilação (veja `src/i18n/global.d.ts`).
-- **Internacionalização.** Idioma inicial pelo navegador (`Accept-Language`), preferência lembrada em cookie por 1 ano e troca sem recarregar. Cada página tem hreflang e `x-default`, e o sitemap lista as duas versões. `check:i18n` falha a CI se `pt.json` e `en.json` divergirem em chaves ou variáveis; no conteúdo, o tipo `Localized<T>` obriga as duas línguas.
-- **Imagens de compartilhamento.** Uma imagem Open Graph por idioma e por estudo de caso, gerada no build com `next/og`, na fonte Geist e com a mesma rede de agentes do hero (`src/components/hero/network.ts`).
-- **Interatividade sem custo para quem não precisa.** A cena 3D do hero (React Three Fiber) só carrega em desktop com WebGL, sem movimento reduzido, sem economia de dados e em aparelhos com ≥ 4 núcleos; o three.js vem num chunk separado, baixado depois do carregamento. Nos demais casos fica a mesma rede em SVG, que também é o primeiro quadro. A cena pausa fora da tela.
-- **Animações que não escondem conteúdo.** As entradas das seções usam CSS + IntersectionObserver e só ocultam algo quando há JS (classe `js` aplicada antes da pintura); o hero nunca é animado. Motion cuida do filtro, do painel de evidências e da trilha da linha do tempo, sempre respeitando `prefers-reduced-motion`.
-- **Diagramas de arquitetura como dados.** `content/diagrams.ts` descreve componentes e fluxos; o SVG anima o fluxo principal e destaca as conexões no hover. Onde a atuação foi parcial, as partes feitas por mim ficam marcadas.
-- **Tema sem "piscar".** Um script inline aplica o tema salvo antes da primeira pintura. O tema padrão é o escuro.
-- **Renderização estática.** As duas versões de idioma são pré-renderizadas no build.
+- **One page, deep-linkable details.** The header scrolls to anchors. "View details" opens the case study as an overlay using parallel + intercepting routes, so each case has its own URL (`/en/cases/nexus`) that can be shared and is counted as a page view by Vercel Analytics, with no paid custom events. Opening that URL directly renders the landing page with the panel already open.
+- **Evidence map.** Every skill in `content/skills.ts` points to the projects and roles where it was used; clicking a technology shows that proof. Skills without evidence are not rendered (except "Currently learning").
+- **Explicit placeholders.** Missing information is marked with `pending("NAME")`: shown as `{{NAME}}` in development, omitted in production. `check:placeholders` and an e2e test fail CI if one reaches the final HTML.
+- **Content separate from UI.** Projects, roles and skills live in `content/` as typed data; UI strings live in `messages/`. A missing translation key is a compile error, `Localized<T>` forces both languages in content, and `check:i18n` catches key or variable drift between `pt.json` and `en.json`.
+- **Interactivity that costs nothing to those who don't need it.** The 3D hero only loads on desktop with WebGL, no reduced-motion preference, no data saver and at least 4 CPU cores. three.js ships in a separate chunk downloaded after load (≈238 KB gzipped, 0 KB on mobile). Everywhere else, the same network is rendered as SVG, which is also the first frame. The scene pauses when off screen.
+- **Animations never hide content.** Section reveals use CSS + IntersectionObserver and only hide anything when JS is present (a `js` class set before first paint); the hero is never animated. Motion is loaded through `LazyMotion`, so the animation features arrive after the page is interactive. Everything respects `prefers-reduced-motion`.
+- **Architecture diagrams as data.** `content/diagrams.ts` describes components and flows at a high level (no sensitive details). The SVG animates the main flow and highlights connections on hover; where my role was partial, the parts I built are marked.
+- **Fast first paint.** Both languages are statically prerendered, CSS is inlined (no render-blocking request), only the main font is preloaded, and only the translation namespaces used by client components are sent to the browser.
+- **Share images.** One Open Graph image per language and per case study, generated at build time with `next/og`, using Geist and the same network as the hero.
 
-## Como rodar
+## Running locally
 
-Requer Node.js 20.9 ou superior (versão do projeto em `.nvmrc`).
+Requires Node.js 20.9+ (the project pins its version in `.nvmrc`).
 
 ```bash
 npm install
-npm run dev          # http://localhost:3000 → redireciona para /pt ou /en
+npm run dev            # http://localhost:3000 → redirects to /pt or /en
 ```
 
-| Script                       | O que faz                                   |
-| ---------------------------- | ------------------------------------------- |
-| `npm run build`              | build de produção                           |
-| `npm run lint`               | ESLint                                      |
-| `npm run typecheck`          | gera os tipos de rota e roda `tsc --noEmit` |
-| `npm run format:check`       | Prettier                                    |
-| `npm run check:placeholders` | falha se houver {{placeholder}} no build    |
-| `npm run check:i18n`         | falha se pt.json e en.json divergirem       |
+| Script                       | What it does                                           |
+| ---------------------------- | ------------------------------------------------------ |
+| `npm run build`              | production build                                       |
+| `npm run lint`               | ESLint                                                 |
+| `npm run typecheck`          | generates route types and runs `tsc --noEmit`          |
+| `npm run format:check`       | Prettier                                               |
+| `npm test`                   | Vitest: brief rules checked against `content/`         |
+| `npm run test:e2e`           | Playwright + axe-core against the production build     |
+| `npm run check:i18n`         | fails if `pt.json` and `en.json` diverge               |
+| `npm run check:placeholders` | fails if a `{{placeholder}}` is in the production HTML |
 
-### Variáveis de ambiente
+`npm run test:e2e` expects a prior `npm run build`; it starts its own server on port 3100.
 
-| Variável               | Uso                                                                          |
-| ---------------------- | ---------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL` | URL canônica (metadados, sitemap, Open Graph). Sem ela, usa a URL da Vercel. |
+### Environment variables
 
-## Commits
+| Variable               | Purpose                                                                    |
+| ---------------------- | -------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL (metadata, sitemap, Open Graph). Defaults to the Vercel URL. |
 
-Segue [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `chore:`, `docs:`…).
+## CI
+
+Every push and pull request runs, in order: formatting, lint, type check, translation parity, unit tests, build, placeholder check, broken-link check (lychee), end-to-end and accessibility tests (Playwright + axe-core, desktop and mobile) and Lighthouse CI (minimum 90 in every category). Pull requests also validate [Conventional Commits](https://www.conventionalcommits.org/).
+
+## Deploy
+
+Ready for Vercel with zero configuration: import the repository and, once a custom domain is set, add `NEXT_PUBLIC_SITE_URL`.

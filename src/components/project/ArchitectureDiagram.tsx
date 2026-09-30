@@ -93,7 +93,12 @@ export function ArchitectureDiagram({
       <p aria-hidden className="font-mono text-xs text-muted sm:hidden">
         {scrollHint}
       </p>
-      <div className="-mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0">
+      <div
+        tabIndex={0}
+        role="group"
+        aria-labelledby={`${uid}-caption`}
+        className="-mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0"
+      >
         <svg
           viewBox={`0 0 ${width} ${height}`}
           role="img"

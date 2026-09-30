@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useSpring } from "motion/react";
+import { useReducedMotion, useScroll, useSpring } from "motion/react";
+import * as m from "motion/react-m";
 import { useRef } from "react";
 
 /**
@@ -26,7 +27,7 @@ export function TimelineRail() {
       aria-hidden
       className="absolute inset-y-0 left-0 w-px bg-border"
     >
-      <motion.div
+      <m.div
         style={reduce ? undefined : { scaleY }}
         className="h-full w-full origin-top bg-signal"
       />

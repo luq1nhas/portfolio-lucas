@@ -1,7 +1,8 @@
 "use client";
 
 import { ArrowRight, Briefcase, FolderGit2, X } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { EvidenceRef } from "@content/index";
@@ -148,7 +149,7 @@ export function SkillExplorer({ tiers }: { tiers: TierView[] }) {
         <div aria-live="polite">
           <AnimatePresence mode="wait" initial={false}>
             {currentSkill && (
-              <motion.div
+              <m.div
                 key={currentSkill.label}
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -160,7 +161,7 @@ export function SkillExplorer({ tiers }: { tiers: TierView[] }) {
                   evidence={currentSkill.evidence}
                   onClear={() => setSelected(null)}
                 />
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         </div>
