@@ -2,14 +2,7 @@
 
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type ReactNode,
-} from "react";
-import { cn } from "@/lib/cn";
+import { useCallback, useEffect, useRef, type ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
@@ -36,41 +29,41 @@ export function CaseDialog({
 }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
   const router = useRouter();
-  const [closing, setClosing] = useState(false);
+
+  /** Botão "Ver detalhes" do card de origem, para onde o foco volta ao fechar. */
+  const focusTrigger = useCallback(() => {
+    document
+      .getElementById(`card-${slug}`)
+      ?.querySelector<HTMLElement>(`a[href$="/cases/${slug}"]`)
+      ?.focus({ preventScroll: true });
+  }, [slug]);
 
   useEffect(() => {
     const dialog = ref.current;
     if (dialog && !dialog.open) dialog.showModal();
-  }, []);
+    // Rede de segurança: se o painel sair da tela com o foco perdido no <body>
+    // (ex.: "voltar" do navegador), devolve o foco ao card de origem.
+    return () => {
+      if (document.activeElement === document.body) focusTrigger();
+    };
+  }, [focusTrigger]);
 
-  const finishClose = useCallback(() => {
+  const close = useCallback(() => {
+    // Fecha o <dialog> antes de navegar: a página deixa de ser inerte na hora e o
+    // foco pode voltar ao card de origem. Só então a URL muda.
+    ref.current?.close();
     if (mode === "intercepted") {
       router.back();
     } else {
-      ref.current?.close();
-      setClosing(false);
       window.history.replaceState(window.history.state, "", homeHref);
     }
-    // Devolve o foco ao botão "Ver detalhes" do card de origem.
-    requestAnimationFrame(() => {
-      const card = document.getElementById(`card-${slug}`);
-      card
-        ?.querySelector<HTMLElement>(`a[href$="/cases/${slug}"]`)
-        ?.focus({ preventScroll: true });
-      if (mode === "page") card?.scrollIntoView({ block: "center" });
-    });
-  }, [mode, router, homeHref, slug]);
-
-  // Anima a saída (fade + deslize) antes de fechar; com movimento reduzido, fecha na hora.
-  const close = useCallback(() => {
-    if (closing) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      finishClose();
-      return;
+    focusTrigger();
+    if (mode === "page") {
+      document
+        .getElementById(`card-${slug}`)
+        ?.scrollIntoView({ block: "center" });
     }
-    setClosing(true);
-    setTimeout(finishClose, 180);
-  }, [closing, finishClose]);
+  }, [mode, router, homeHref, slug, focusTrigger]);
 
   return (
     <dialog
@@ -83,11 +76,7 @@ export function CaseDialog({
       onClick={(e) => {
         if (e.target === ref.current) close(); // clique no fundo escurecido
       }}
-      data-closing={closing || undefined}
-      className={cn(
-        "m-0 h-dvh max-h-none w-full max-w-none bg-transparent text-fg transition-[opacity,translate] duration-300 backdrop:bg-black/60 backdrop:backdrop-blur-sm motion-reduce:transition-none sm:m-auto sm:h-[min(92dvh,960px)] sm:max-w-3xl starting:open:translate-y-4 starting:open:opacity-0",
-        closing ? "translate-y-4 opacity-0" : "opacity-100",
-      )}
+      className="m-0 h-dvh max-h-none w-full max-w-none bg-transparent text-fg backdrop:bg-black/60 backdrop:backdrop-blur-sm sm:m-auto sm:h-[min(92dvh,960px)] sm:max-w-3xl"
     >
       <div className="flex h-full flex-col overflow-hidden border-border bg-bg sm:rounded-2xl sm:border">
         <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-3 sm:px-8">

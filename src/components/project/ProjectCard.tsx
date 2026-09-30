@@ -114,14 +114,14 @@ export async function getProjectCardParts({ project }: { project: Project }) {
 }
 
 export const cardShell =
-  "group relative rounded-2xl border border-border bg-surface p-6 transition duration-300 hover:-translate-y-0.5 hover:border-signal/50 hover:shadow-[0_8px_30px_-12px_var(--signal-soft)] motion-reduce:transition-none motion-reduce:hover:translate-y-0";
+  "group relative rounded-2xl border border-border bg-surface p-6 hover:border-signal/50";
 
 /** Nó da "rede" no canto do card: acende no hover. */
 export function CardNode() {
   return (
     <span
       aria-hidden
-      className="absolute top-6 right-6 size-2 rounded-full bg-edge transition-colors duration-300 group-hover:bg-signal"
+      className="absolute top-6 right-6 size-2 rounded-full bg-edge group-hover:bg-signal"
     />
   );
 }

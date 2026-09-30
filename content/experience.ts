@@ -12,11 +12,11 @@ export const experience: Experience[] = [
     bullets: {
       pt: [
         "Desenvolvimento de ponta a ponta no SGD-Municípios, plataforma GovTech de processo eletrônico para prefeituras do Tocantins.",
-        "Multi-tenancy com Row-Level Security, pipeline de IA (OCR → chunking → embeddings), filas assíncronas, CI/CD e deploy com Docker Compose.",
+        "Isolamento de dados entre municípios, ingestão de documentos para busca com IA, testes automatizados e CI/CD.",
       ],
       en: [
         "End-to-end development on SGD-Municípios, a GovTech digital case management platform for municipalities in Tocantins, Brazil.",
-        "Multi-tenancy with Row-Level Security, an AI pipeline (OCR → chunking → embeddings), async queues, CI/CD and deployment with Docker Compose.",
+        "Data isolation between municipalities, document ingestion for AI-powered search, automated tests and CI/CD.",
       ],
     },
     projects: ["sgd-municipios"],

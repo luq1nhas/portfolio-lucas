@@ -75,7 +75,7 @@ export type Source =
   /** Projeto de empresa: nunca linkar repositório. */
   | { kind: "corporate" }
   /** Repositório privado de organização, mostrado na entrevista técnica. */
-  | { kind: "interview"; showcaseUrl: Maybe<string> }
+  | { kind: "interview"; showcaseUrl?: string }
   | { kind: "open"; repoUrl: string };
 
 export type Project = {

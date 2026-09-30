@@ -1,12 +1,10 @@
 import { getTranslations } from "next-intl/server";
-import { projectsIn, showPlaceholders } from "@content/index";
-import { upcomingProject } from "@content/projects";
+import { projectsIn } from "@content/index";
 import type { Project } from "@content/types";
 import { FeaturedProjectCard } from "@/components/project/FeaturedProjectCard";
 import { FilterableGrid } from "@/components/project/FilterableGrid";
 import { ProjectCard } from "@/components/project/ProjectCard";
 import { WakeDemo } from "@/components/project/WakeDemo";
-import { Placeholder } from "@/components/ui/Placeholder";
 import { Section } from "@/components/ui/Section";
 
 const gridClassName = "grid gap-5 md:grid-cols-2 lg:grid-cols-3";
@@ -42,7 +40,6 @@ async function ProjectGrid({ projects }: { projects: Project[] }) {
 export async function Projects() {
   const tSections = await getTranslations("Sections");
   const tIntros = await getTranslations("Intros");
-  const tProject = await getTranslations("Project");
 
   const personal = projectsIn("personal");
   const featured = personal.filter((p) => p.featured);
@@ -62,15 +59,6 @@ export async function Projects() {
           </div>
         ))}
         <ProjectGrid projects={rest} />
-        {/* Espaço reservado: só aparece em desenvolvimento. */}
-        {showPlaceholders && (
-          <div className="rounded-2xl border border-dashed border-border p-6 text-sm text-muted">
-            <p className="mb-2 font-mono text-xs uppercase">
-              {tProject("upcoming")}
-            </p>
-            <Placeholder value={upcomingProject} />
-          </div>
-        )}
       </div>
     </Section>
   );

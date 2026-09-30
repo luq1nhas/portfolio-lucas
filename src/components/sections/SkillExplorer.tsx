@@ -1,8 +1,18 @@
 "use client";
 
-import { ArrowRight, Briefcase, FolderGit2, X } from "lucide-react";
-import { AnimatePresence } from "motion/react";
-import * as m from "motion/react-m";
+import {
+  ArrowRight,
+  BrainCircuit,
+  Briefcase,
+  Cloud,
+  FolderGit2,
+  Layers,
+  Network,
+  Sprout,
+  Wrench,
+  X,
+  type LucideIcon,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { EvidenceRef } from "@content/index";
@@ -55,10 +65,7 @@ function EvidencePanel({
                 {ev.kind === "project" ? t("project") : t("experience")}:{" "}
               </span>
               {ev.label}
-              <ArrowRight
-                className="size-3.5 text-muted transition-transform group-hover:translate-x-0.5"
-                aria-hidden
-              />
+              <ArrowRight className="size-3.5 text-muted" aria-hidden />
             </>
           );
           return (
@@ -81,11 +88,49 @@ function EvidencePanel({
 }
 
 const skillSize: Record<TierView["level"], string> = {
-  1: "px-3.5 py-2 text-base font-medium",
-  2: "px-3 py-1.5 text-sm",
+  1: "px-3.5 py-1.5 text-sm font-medium",
+  2: "px-3 py-1 text-sm",
   3: "px-2.5 py-1 text-xs",
   learning: "",
 };
+
+const tierIcon: Record<TierView["id"], LucideIcon> = {
+  ai: BrainCircuit,
+  base: Layers,
+  devops: Cloud,
+  architecture: Network,
+  also: Wrench,
+  learning: Sprout,
+};
+
+/** Cabeçalho do card: ícone, nome da categoria e quantidade de tecnologias. */
+function TierHeader({ tier, icon }: { tier: TierView; icon: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-3">
+      <span
+        className={cn(
+          "grid size-8 place-items-center rounded-lg border",
+          tier.level === 1
+            ? "border-signal/40 bg-signal-soft text-signal"
+            : "border-border bg-surface-2 text-muted",
+        )}
+      >
+        {icon}
+      </span>
+      <h3
+        className={cn(
+          "font-mono text-xs tracking-wider uppercase",
+          tier.level === 1 ? "text-signal" : "text-fg",
+        )}
+      >
+        {tier.label}
+      </h3>
+      <span className="ml-auto font-mono text-xs text-muted">
+        {tier.skills.length}
+      </span>
+    </div>
+  );
+}
 
 const skillTone: Record<TierView["level"], string> = {
   1: "border-signal/40 hover:border-signal",
@@ -107,18 +152,22 @@ export function SkillExplorer({ tiers }: { tiers: TierView[] }) {
     const current = selected?.tier === tier.id ? selected : null;
     const currentSkill =
       current && tier.skills.find((s) => s.label === current.label);
+    const Icon = tierIcon[tier.id];
 
     return (
-      <div key={tier.id} className={className}>
-        <h3
-          className={cn(
-            "font-mono text-xs tracking-wider uppercase",
-            tier.level === 1 ? "text-signal" : "text-muted",
-          )}
-        >
-          {tier.label}
-        </h3>
-        <ul className="mt-4 flex flex-wrap gap-2">
+      <div
+        key={tier.id}
+        className={cn(
+          "flex flex-col rounded-2xl border bg-surface p-6",
+          tier.level === 1 ? "border-signal/40 sm:p-8" : "border-border",
+          className,
+        )}
+      >
+        <TierHeader
+          tier={tier}
+          icon={<Icon className="size-4" aria-hidden />}
+        />
+        <ul className="mt-5 flex flex-wrap gap-2">
           {tier.skills.map((skill) => {
             const pressed = current?.label === skill.label;
             return (
@@ -132,7 +181,7 @@ export function SkillExplorer({ tiers }: { tiers: TierView[] }) {
                     )
                   }
                   className={cn(
-                    "rounded-full border transition-colors",
+                    "rounded-full border",
                     skillSize[tier.level],
                     // Estilo de selecionado substitui (não soma) o do nível, para não haver conflito de cor.
                     pressed
@@ -147,58 +196,50 @@ export function SkillExplorer({ tiers }: { tiers: TierView[] }) {
           })}
         </ul>
         <div aria-live="polite">
-          <AnimatePresence mode="wait" initial={false}>
-            {currentSkill && (
-              <m.div
-                key={currentSkill.label}
-                initial={{ opacity: 0, y: -6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.18 }}
-              >
-                <EvidencePanel
-                  skill={currentSkill.label}
-                  evidence={currentSkill.evidence}
-                  onClear={() => setSelected(null)}
-                />
-              </m.div>
-            )}
-          </AnimatePresence>
+          {currentSkill && (
+            <EvidencePanel
+              skill={currentSkill.label}
+              evidence={currentSkill.evidence}
+              onClear={() => setSelected(null)}
+            />
+          )}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col gap-10">
-      {primary.map((tier) =>
-        renderTier(
-          tier,
-          "rounded-2xl border border-signal/30 bg-surface p-6 sm:p-8",
-        ),
-      )}
-      <div className="grid gap-10 lg:grid-cols-3">
+    <div className="flex flex-col gap-5">
+      {primary.map((tier) => renderTier(tier))}
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {secondary.map((tier) => renderTier(tier))}
       </div>
-      <div className="flex flex-col gap-8 border-t border-border pt-8 lg:flex-row lg:items-start lg:justify-between">
-        {tertiary.map((tier) => renderTier(tier, "lg:max-w-2xl"))}
-        {learning.map((tier) => (
-          <div key={tier.id}>
-            <h3 className="font-mono text-xs tracking-wider text-muted uppercase">
-              {tier.label}
-            </h3>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {tier.skills.map((skill) => (
-                <li
-                  key={skill.label}
-                  className="rounded-full border border-dashed border-muted/60 px-2.5 py-1 text-xs text-muted"
-                >
-                  {skill.label}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      <div className="grid gap-5 lg:grid-cols-[2fr_1fr]">
+        {tertiary.map((tier) => renderTier(tier))}
+        {learning.map((tier) => {
+          const Icon = tierIcon[tier.id];
+          return (
+            <div
+              key={tier.id}
+              className="flex flex-col rounded-2xl border border-dashed border-border bg-surface/50 p-6"
+            >
+              <TierHeader
+                tier={tier}
+                icon={<Icon className="size-4" aria-hidden />}
+              />
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {tier.skills.map((skill) => (
+                  <li
+                    key={skill.label}
+                    className="rounded-full border border-dashed border-muted/60 px-2.5 py-1 text-xs text-muted"
+                  >
+                    {skill.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
       </div>
       <p className="sr-only">{t("hint")}</p>
     </div>

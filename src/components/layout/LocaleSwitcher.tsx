@@ -28,7 +28,7 @@ export function LocaleSwitcher() {
             lang={htmlLang[locale]}
             aria-current={active ? "true" : undefined}
             className={cn(
-              "rounded-full px-2.5 py-1 uppercase transition-colors",
+              "rounded-full px-2.5 py-1 uppercase",
               active ? "bg-fg text-bg" : "text-muted hover:text-fg",
             )}
           >

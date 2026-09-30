@@ -1,7 +1,5 @@
 "use client";
 
-import { AnimatePresence } from "motion/react";
-import * as m from "motion/react-m";
 import { useTranslations } from "next-intl";
 import { useCallback, useSyncExternalStore, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
@@ -67,7 +65,7 @@ export function FilterableGrid({ items, tags, param, gridClassName }: Props) {
                 aria-pressed={pressed}
                 onClick={() => select(opt.id)}
                 className={cn(
-                  "rounded-full border px-3 py-1 text-sm transition-colors",
+                  "rounded-full border px-3 py-1 text-sm",
                   pressed
                     ? "border-tag bg-tag text-bg"
                     : "border-border text-muted hover:border-tag/60 hover:text-fg",
@@ -87,21 +85,14 @@ export function FilterableGrid({ items, tags, param, gridClassName }: Props) {
       )}
       <div className={gridClassName}>
         {/* Cada item é um subgrid de 7 linhas (como o card), para manter o alinhamento. */}
-        <AnimatePresence mode="popLayout" initial={false}>
-          {visible.map((item) => (
-            <m.div
-              key={item.id}
-              layout
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.97 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="row-span-7 grid grid-rows-subgrid gap-y-4"
-            >
-              {item.node}
-            </m.div>
-          ))}
-        </AnimatePresence>
+        {visible.map((item) => (
+          <div
+            key={item.id}
+            className="row-span-7 grid grid-rows-subgrid gap-y-4"
+          >
+            {item.node}
+          </div>
+        ))}
       </div>
     </>
   );

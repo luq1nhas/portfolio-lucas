@@ -1,8 +1,6 @@
 import { Code2, Lock } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import type { Source } from "@content/types";
-import { isPending } from "@content/types";
-import { Placeholder } from "@/components/ui/Placeholder";
 import { external } from "@/lib/links";
 
 export async function SourceBadge({ source }: { source: Source }) {
@@ -31,29 +29,17 @@ export async function SourceBadge({ source }: { source: Source }) {
     );
   }
 
-  // Repositório privado de organização: convida para a entrevista técnica.
+  // Repositório privado de organização: sem selo. Se um repositório público de
+  // apresentação existir (showcaseUrl), só o link para ele aparece.
+  if (!source.showcaseUrl) return null;
   return (
-    <p className={`${base} flex-wrap`}>
-      <Lock className="size-3.5 shrink-0" aria-hidden />
-      {t("sourceInterview")}
-      <span aria-hidden>·</span>
-      <a
-        href="#contact"
-        className="text-signal underline-offset-4 hover:underline"
-      >
-        {t("sourceInterviewCta")}
-      </a>
-      {isPending(source.showcaseUrl) ? (
-        <Placeholder value={source.showcaseUrl} />
-      ) : (
-        <a
-          href={source.showcaseUrl}
-          {...external}
-          className="text-signal hover:underline"
-        >
-          {t("viewRepo")}
-        </a>
-      )}
-    </p>
+    <a
+      href={source.showcaseUrl}
+      {...external}
+      className={`${base} hover:text-fg`}
+    >
+      <Code2 className="size-3.5 shrink-0" aria-hidden />
+      {t("viewRepo")}
+    </a>
   );
 }

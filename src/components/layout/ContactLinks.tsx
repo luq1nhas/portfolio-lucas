@@ -75,7 +75,7 @@ export async function ContactLinks({ className }: { className?: string }) {
             download={download || undefined}
             hrefLang={hrefLang}
             {...(isExternal ? external : {})}
-            className="inline-flex items-center gap-2 rounded-full border border-border px-3.5 py-2 text-sm text-muted transition-colors hover:border-signal hover:text-fg"
+            className="inline-flex items-center gap-2 rounded-full border border-border px-3.5 py-2 text-sm text-muted hover:border-signal hover:text-fg"
           >
             <Icon className="size-4 shrink-0" />
             {label}

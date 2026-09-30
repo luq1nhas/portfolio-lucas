@@ -25,7 +25,9 @@ test.describe("landing", () => {
     await expect(
       hero.getByText("8 semanas para 1", { exact: true }),
     ).toBeVisible();
-    await expect(hero.getByText("Disponível para oportunidades")).toBeVisible();
+    await expect(
+      hero.getByText("Disponível para novas oportunidades"),
+    ).toBeVisible();
     await expect(
       page.getByRole("link", { name: "Ver projetos" }),
     ).toHaveAttribute("href", "#projects");
@@ -106,5 +108,16 @@ test.describe("landing", () => {
     ).toBe("same");
     await page.goto("/");
     await expect(page).toHaveURL(/\/en$/);
+  });
+
+  test("o tema salvo é aplicado e sobrevive à troca de idioma", async ({
+    page,
+  }) => {
+    await page.addInitScript(() => localStorage.setItem("theme", "light"));
+    await page.goto("/pt");
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    await page.locator('header a[hreflang="en"]').click();
+    await expect(page).toHaveURL(/\/en$/);
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   });
 });

@@ -29,6 +29,7 @@
     "available": "Open to opportunities",
     "role": "Full Stack Developer · <em>Applied AI</em> (Agents & RAG)",
     "valueProp": "I build AI agents and full stack applications that deliver business results, like cutting software integrations from <result>8 weeks to 1</result>.",
+    "status": "<strong>Open to new opportunities</strong>: full-time, contract, remote, international or freelance.",
     "ctaProjects": "See projects",
     "ctaContact": "Get in touch",
     "location": "Palmas, Brazil · open to remote"
@@ -39,14 +40,14 @@
     "contributions": "Contributions",
     "experience": "Experience",
     "stack": "Stack & skills",
-    "testimonial": "Recommendation",
+    "testimonial": "Recommendations",
     "contact": "Contact"
   },
   "Intros": {
     "projects": "Built by me, end to end.",
     "contributions": "Professional projects I worked on. The code is private; each card separates what I did from what the platform itself offers.",
     "stack": "Click a technology to see which projects and roles it was used in.",
-    "contact": "Open to new opportunities: full-time, contract, remote, international or freelance."
+    "contact": "Email, WhatsApp or LinkedIn: whichever works best for you."
   },
   "About": {
     "body": "I'm a full stack developer specialized in <strong>applied AI</strong>. I build agents with LangChain, LangGraph, Azure OpenAI and AWS Bedrock, plus RAG and embedding pipelines, on a foundation of TypeScript, React and NestJS. I ship end-to-end features in multi-tenant production systems, from a B2B SaaS for AI agents to a GovTech platform for municipalities, backed by automated tests, CI/CD and Clean Architecture. I've worked at an innovation consultancy (MJV), a large tech company (CI&T) and a business software company (Max Data).",
@@ -72,11 +73,8 @@
     "coldStart": "The first load may take a few seconds.",
     "flow": "How it works",
     "sourceCorporate": "Company project — private code",
-    "sourceInterview": "Code available for the technical interview",
-    "sourceInterviewCta": "Request access",
     "sourceOpen": "Open source",
     "viewRepo": "View repository",
-    "upcoming": "Next project",
     "filterLabel": "Filter by category",
     "filterAll": "All",
     "filterCount": "{count, plural, one {# project} other {# projects}}"

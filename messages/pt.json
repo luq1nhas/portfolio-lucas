@@ -29,6 +29,7 @@
     "available": "Disponível para oportunidades",
     "role": "Desenvolvedor Full Stack · <em>IA Aplicada</em> (Agentes & RAG)",
     "valueProp": "Construo agentes de IA e aplicações full stack que viram resultado de negócio, como reduzir integrações de software de <result>8 semanas para 1</result>.",
+    "status": "<strong>Disponível para novas oportunidades</strong>: CLT, PJ, remoto, internacional ou freelance.",
     "ctaProjects": "Ver projetos",
     "ctaContact": "Contato",
     "location": "Palmas, TO · Brasil · aberto a remoto"
@@ -39,14 +40,14 @@
     "contributions": "Contribuições",
     "experience": "Experiência",
     "stack": "Stack & habilidades",
-    "testimonial": "Depoimento",
+    "testimonial": "Recomendações",
     "contact": "Contato"
   },
   "Intros": {
     "projects": "Construídos por mim, de ponta a ponta.",
     "contributions": "Projetos profissionais em que atuei. O código é privado; cada card separa o que eu fiz do que é característica da plataforma.",
     "stack": "Clique em uma tecnologia para ver em quais projetos e experiências ela foi usada.",
-    "contact": "Disponível para novas oportunidades: CLT, PJ, remoto, internacional ou freelance."
+    "contact": "E-mail, WhatsApp ou LinkedIn: escolha o canal que preferir."
   },
   "About": {
     "body": "Sou desenvolvedor full stack especializado em <strong>IA aplicada</strong>. Construo agentes com LangChain, LangGraph, Azure OpenAI e AWS Bedrock e pipelines de RAG e embeddings, sobre uma base de TypeScript, React e NestJS. Entrego funcionalidades de ponta a ponta em sistemas multi-tenant de produção, do SaaS B2B de agentes de IA à plataforma GovTech para prefeituras, com testes automatizados, CI/CD e Clean Architecture. Já atuei em consultoria de inovação (MJV), em grande empresa de tecnologia (CI&T) e em software de gestão (Max Data).",
@@ -72,11 +73,8 @@
     "coldStart": "O primeiro acesso pode levar alguns segundos.",
     "flow": "Como funciona",
     "sourceCorporate": "Projeto corporativo — código privado",
-    "sourceInterview": "Código disponível para a entrevista técnica",
-    "sourceInterviewCta": "Pedir acesso",
     "sourceOpen": "Código aberto",
     "viewRepo": "Ver repositório",
-    "upcoming": "Próximo projeto",
     "filterLabel": "Filtrar por categoria",
     "filterAll": "Todos",
     "filterCount": "{count, plural, one {# projeto} other {# projetos}}"

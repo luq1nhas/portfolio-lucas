@@ -21,7 +21,7 @@ export function Section({ id, title, intro, children, className }: Props) {
       className={cn("border-t border-border/60 py-20 sm:py-28", className)}
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div data-reveal>
+        <div>
           <h2
             id={`${id}-title`}
             className="flex items-baseline gap-3 text-3xl font-semibold tracking-tight sm:text-4xl"
@@ -38,9 +38,7 @@ export function Section({ id, title, intro, children, className }: Props) {
             <p className="mt-4 max-w-2xl text-pretty text-muted">{intro}</p>
           )}
         </div>
-        <div data-reveal className="mt-10 sm:mt-12">
-          {children}
-        </div>
+        <div className="mt-10 sm:mt-12">{children}</div>
       </div>
     </section>
   );

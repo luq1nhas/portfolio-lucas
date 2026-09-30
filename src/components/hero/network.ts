@@ -1,5 +1,5 @@
 // Topologia da "rede de agentes" (coordenadas num quadro 400×400).
-// Compartilhada pelo hero (SVG e cena 3D) e pelas imagens Open Graph.
+// Usada nas imagens Open Graph (compartilhamento no LinkedIn, WhatsApp…).
 
 export type NetworkNode = {
   x: number;

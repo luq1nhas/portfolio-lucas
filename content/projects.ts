@@ -1,4 +1,4 @@
-import { pending, type Project } from "./types";
+import type { Project } from "./types";
 
 const MJV = "MJV Technology & Innovation";
 const MJV_PERIOD = { pt: "2025–2026", en: "2025–2026" };
@@ -74,10 +74,9 @@ export const projects: Project[] = [
         pt: "Todo o fluxo de estudo em uma única interface, aceitando PDF, DOCX, TXT e imagens (até 10 arquivos de 10 MB), com OCR aplicado só quando necessário.",
         en: "The whole study workflow in a single interface, accepting PDF, DOCX, TXT and images (up to 10 files of 10 MB each), with OCR applied only when needed.",
       },
-      resultMetric: pending("MÉTRICA_OPCIONAL"),
     },
     demo: { url: "https://nexus-1-yc96.onrender.com/", coldStart: true },
-    source: { kind: "interview", showcaseUrl: pending("URL_SHOWCASE") },
+    source: { kind: "interview" },
   },
 
   // ── Contribuições ─────────────────────────────────────────────────────────
@@ -102,7 +101,7 @@ export const projects: Project[] = [
       "NestJS 11",
       "TypeScript",
       "Prisma",
-      "PostgreSQL (RLS)",
+      "PostgreSQL",
       "pgvector",
       "TanStack Query",
       "Zod",
@@ -113,61 +112,55 @@ export const projects: Project[] = [
     ],
     responsibilities: {
       pt: [
-        "Implementei multi-tenancy com Row-Level Security no PostgreSQL e testes automatizados que garantem o isolamento entre municípios.",
-        "Construí o pipeline de ingestão de documentos para IA (OCR → chunking → embeddings locais), com fila assíncrona, backfill e respeito ao sigilo de cada documento.",
-        "Desenvolvi o motor de notificações e as filas de e-mail e de assinatura de documentos com retry (pg-boss).",
-        "Garanti a qualidade com testes unitários e e2e, migrations com rollback e CI/CD no GitHub Actions com deploy em VPS via Docker Compose.",
+        "Desenvolvi funcionalidades de ponta a ponta, do backend em NestJS ao frontend em React.",
+        "Implementei o isolamento de dados entre municípios, com testes automatizados que o garantem.",
+        "Construí a ingestão de documentos para a busca com IA, incluindo OCR e embeddings.",
+        "Garanti a qualidade com testes unitários e e2e e pipelines de CI/CD.",
       ],
       en: [
-        "Implemented multi-tenancy with PostgreSQL Row-Level Security, plus automated tests that guarantee isolation between municipalities.",
-        "Built the AI document ingestion pipeline (OCR → chunking → local embeddings), with an async queue, backfill and per-document confidentiality rules.",
-        "Developed the notification engine and the email and document-signing queues with retries (pg-boss).",
-        "Ensured quality with unit and e2e tests, migrations with rollback, and CI/CD on GitHub Actions deploying to a VPS via Docker Compose.",
+        "Delivered end-to-end features, from the NestJS backend to the React frontend.",
+        "Implemented data isolation between municipalities, backed by automated tests.",
+        "Built document ingestion for AI-powered search, including OCR and embeddings.",
+        "Ensured quality with unit and e2e tests and CI/CD pipelines.",
       ],
     },
     fullResponsibilities: {
       pt: [
-        "Desenvolvi funcionalidades de ponta a ponta em um monólito modular com NestJS, Prisma e PostgreSQL no backend e React 19, Vite, TanStack Query e Tailwind CSS no frontend, em um monorepo TypeScript com contratos compartilhados em Zod.",
-        "Implementei multi-tenancy com Row-Level Security (RLS) no PostgreSQL, isolando os dados de cada município, e criei testes automatizados que garantem o isolamento entre tenants.",
-        "Construí o pipeline de ingestão de documentos para IA (texto OCR → chunking → embeddings locais), com fila assíncrona, reprocessamento em lote (backfill) e respeito ao nível de sigilo de cada documento.",
-        "Desenvolvi o motor de notificações e a fila de e-mails transacionais com retry usando pg-boss e SMTP, além da fila de solicitação de assinatura de documentos.",
-        "Criei os relatórios operacionais com exportação CSV e controle de acesso por perfil (RBAC), incluindo métricas de tempo de tramitação em dias úteis.",
-        "Implementei os fluxos de segurança e acesso: bloqueio após 5 tentativas de login inválidas, redefinição de senha por e-mail, autocadastro de servidores, lista de CPFs autorizados e fila de aprovação de acesso.",
-        "Entreguei módulos centrais do domínio de processos: numeração NUP parametrizável, visualizador de processos em abas, anexos, modelos de documentos, distribuição automática e política de retenção e arquivamento (TTDD).",
-        "Melhorei a acessibilidade e a UX com navegação por teclado, foco visível no menu, reorganização da navegação em grupos e correções de layout responsivo.",
-        "Garanti a qualidade com testes unitários e e2e (Jest, Vitest, Supertest e Playwright), migrations versionadas com scripts de rollback e pipelines de CI/CD no GitHub Actions, com deploy em VPS via Docker Compose.",
-        "Trabalhei com Scrum e Jira, Git flow (feature → dev → main), Conventional Commits e code review via Pull Requests.",
+        "Desenvolvi funcionalidades de ponta a ponta com NestJS, Prisma e PostgreSQL no backend e React, TanStack Query e Tailwind CSS no frontend, em TypeScript.",
+        "Implementei o isolamento de dados entre municípios (multi-tenancy), com testes automatizados que o garantem.",
+        "Construí a ingestão de documentos para a busca com IA, incluindo OCR e geração de embeddings.",
+        "Desenvolvi as notificações, o envio de e-mails e as solicitações de assinatura de documentos.",
+        "Criei relatórios operacionais com exportação CSV e controle de acesso por perfil.",
+        "Implementei fluxos de autenticação e controle de acesso.",
+        "Entreguei módulos centrais da gestão de processos e documentos.",
+        "Melhorei a acessibilidade e a UX, com navegação por teclado e ajustes de layout responsivo.",
+        "Garanti a qualidade com testes unitários e e2e (Jest, Vitest, Supertest e Playwright) e pipelines de CI/CD no GitHub Actions.",
+        "Trabalhei com Scrum, Git flow, Conventional Commits e code review via Pull Requests.",
       ],
       en: [
-        "Delivered end-to-end features in a modular monolith: NestJS, Prisma and PostgreSQL on the backend, React 19, Vite, TanStack Query and Tailwind CSS on the frontend, in a TypeScript monorepo with shared Zod contracts.",
-        "Implemented multi-tenancy with PostgreSQL Row-Level Security (RLS), isolating each municipality's data, and wrote automated tests that guarantee tenant isolation.",
-        "Built the AI document ingestion pipeline (OCR text → chunking → local embeddings), with an async queue, batch reprocessing (backfill) and per-document confidentiality levels.",
-        "Developed the notification engine and the transactional email queue with retries using pg-boss and SMTP, plus the document signature request queue.",
-        "Created operational reports with CSV export and role-based access control (RBAC), including case processing time metrics in business days.",
-        "Implemented security and access flows: lockout after 5 failed sign-in attempts, password reset by email, staff self-registration, an allowlist of authorized CPFs (Brazilian taxpayer IDs) and an access approval queue.",
-        "Delivered core modules of the case domain: configurable NUP case numbering, a tabbed case viewer, attachments, document templates, automatic assignment, and a retention and archiving policy (TTDD).",
-        "Improved accessibility and UX with keyboard navigation, visible focus in the menu, navigation regrouping and responsive layout fixes.",
-        "Ensured quality with unit and e2e tests (Jest, Vitest, Supertest and Playwright), versioned migrations with rollback scripts, and CI/CD pipelines on GitHub Actions deploying to a VPS via Docker Compose.",
-        "Worked with Scrum and Jira, Git flow (feature → dev → main), Conventional Commits and code review through pull requests.",
+        "Delivered end-to-end features with NestJS, Prisma and PostgreSQL on the backend and React, TanStack Query and Tailwind CSS on the frontend, in TypeScript.",
+        "Implemented data isolation between municipalities (multi-tenancy), backed by automated tests.",
+        "Built document ingestion for AI-powered search, including OCR and embedding generation.",
+        "Developed notifications, email delivery and document signature requests.",
+        "Created operational reports with CSV export and role-based access control.",
+        "Implemented authentication and access control flows.",
+        "Delivered core modules for case and document management.",
+        "Improved accessibility and UX with keyboard navigation and responsive layout fixes.",
+        "Ensured quality with unit and e2e tests (Jest, Vitest, Supertest and Playwright) and CI/CD pipelines on GitHub Actions.",
+        "Worked with Scrum, Git flow, Conventional Commits and code review through pull requests.",
       ],
     },
     platformHighlights: {
       pt: [
-        "~45 módulos NestJS com fronteiras de domínio explícitas.",
-        "170+ migrations com rollback pareado e decisões registradas em ADRs.",
-        "Embeddings locais, sem enviar documentos sigilosos a terceiros.",
-        "Meta WCAG 2.1 AA com testes axe-core.",
-        "~700 arquivos de teste.",
-        "Antivírus no upload.",
+        "Portal do cidadão com login gov.br.",
+        "Busca por OCR nos documentos.",
+        "Meta de acessibilidade WCAG 2.1 AA.",
         "Conformidade com a LGPD e trilha de auditoria.",
       ],
       en: [
-        "~45 NestJS modules with explicit domain boundaries.",
-        "170+ migrations, each paired with a rollback, and decisions recorded in ADRs.",
-        "Local embeddings, so confidential documents are never sent to third parties.",
-        "WCAG 2.1 AA target with axe-core tests.",
-        "~700 test files.",
-        "Antivirus scanning on upload.",
+        "Citizen portal with gov.br sign-in.",
+        "OCR-powered document search.",
+        "WCAG 2.1 AA accessibility target.",
         "LGPD (Brazil's data protection law) compliance and an audit trail.",
       ],
     },
@@ -180,8 +173,8 @@ export const projects: Project[] = [
     ],
     star: {
       situation: {
-        pt: "Prefeituras do Tocantins dependiam de papel e de sistemas legados fragmentados, num contexto com LGPD, sigilo, auditoria e prazos legais em dias úteis.",
-        en: "Municipalities in Tocantins relied on paper and fragmented legacy systems, in a context of data protection law (LGPD), confidentiality, auditing and legal deadlines counted in business days.",
+        pt: "Prefeituras do Tocantins dependiam de papel e de sistemas legados fragmentados, num contexto com exigências de LGPD e auditoria.",
+        en: "Municipalities in Tocantins relied on paper and fragmented legacy systems, under data protection (LGPD) and auditing requirements.",
       },
       task: {
         pt: "Construir uma plataforma multi-tenant de processo eletrônico com isolamento total entre municípios.",
@@ -189,8 +182,8 @@ export const projects: Project[] = [
       },
       action: "responsibilities",
       result: {
-        pt: "Processo eletrônico completo para prefeituras, com isolamento entre municípios garantido no próprio banco e testado automaticamente, documentos indexados para busca respeitando o sigilo, e deploy automatizado via CI/CD.",
-        en: "A complete electronic case workflow for municipalities, with isolation between them enforced by the database itself and covered by automated tests, documents indexed for search while respecting confidentiality, and automated deployment through CI/CD.",
+        pt: "Processo eletrônico completo para prefeituras, com isolamento de dados entre municípios coberto por testes automatizados e entregas contínuas via CI/CD.",
+        en: "A complete electronic case workflow for municipalities, with data isolation between them covered by automated tests and continuous delivery through CI/CD.",
       },
     },
     source: { kind: "corporate" },
@@ -236,22 +229,16 @@ export const projects: Project[] = [
     },
     platformHighlights: {
       pt: [
-        "Microsserviço de IA em Clean Architecture: trocar o provedor de LLM não afeta o domínio.",
-        "Streaming token a token via SSE, com cancelamento.",
-        "Agentes com tools: busca web, leitura de PDF, transcrição de áudio, análise de imagem e geração de docx/pdf/xlsx.",
-        "Agentes configuráveis pelo banco, sem deploy.",
-        "Guards multi-tenant com prevenção de IDOR.",
-        "i18n em 4 idiomas.",
-        "TDD com mínimo de 80% de cobertura em código crítico.",
+        "Respostas dos agentes em streaming, com opção de cancelar.",
+        "Agentes com ferramentas: busca web, leitura de PDF, transcrição de áudio, análise de imagem e geração de documentos.",
+        "Integração com Jira, Trello, Asana e Azure DevOps.",
+        "Interface em 4 idiomas.",
       ],
       en: [
-        "AI microservice built with Clean Architecture: swapping the LLM provider doesn't touch the domain.",
-        "Token-by-token streaming over SSE, with cancellation.",
-        "Tool-using agents: web search, PDF reading, audio transcription, image analysis and docx/pdf/xlsx generation.",
-        "Agents configured from the database, with no deploy needed.",
-        "Multi-tenant guards with IDOR prevention.",
-        "i18n in 4 languages.",
-        "TDD with at least 80% coverage on critical code.",
+        "Streamed agent responses, with the option to cancel.",
+        "Agents with tools: web search, PDF reading, audio transcription, image analysis and document generation.",
+        "Integrations with Jira, Trello, Asana and Azure DevOps.",
+        "Interface available in 4 languages.",
       ],
     },
     tags: ["genai", "aiAgents", "saasB2b", "multiTenant", "microservices"],
@@ -269,8 +256,8 @@ export const projects: Project[] = [
         en: "New features, bug fixes and continuous improvements as a Full Stack Developer.",
       },
       result: {
-        pt: "IA operando dentro das ferramentas das empresas, com isolamento por empresa, planos de assinatura e métricas de consumo de tokens.",
-        en: "AI running inside companies' own tools, with per-company isolation, subscription plans and token usage metrics.",
+        pt: "IA operando dentro das ferramentas que as empresas já usam, com os dados de cada empresa isolados.",
+        en: "AI running inside the tools companies already use, with each company's data kept isolated.",
       },
     },
     source: { kind: "corporate" },
@@ -466,7 +453,6 @@ export const projects: Project[] = [
         pt: "Sistema preparado para o novo formato, com processamento em lote.",
         en: "System ready for the new format, with batch processing.",
       },
-      resultMetric: pending("RESULTADO_CNPJ"),
     },
     source: { kind: "corporate" },
     experience: "mjv",
@@ -477,8 +463,8 @@ export const projects: Project[] = [
     title: { pt: "Max Web V2", en: "Max Web V2" },
     context: { org: "Max Data Sistemas", period: { pt: "2024", en: "2024" } },
     description: {
-      pt: "Reescrita completa de um sistema corporativo de gestão empresarial, com nova arquitetura Angular em módulos independentes, performance otimizada e interface totalmente redesenhada.",
-      en: "A full rewrite of a corporate business management system, with a new Angular architecture based on independent modules, optimized performance and a completely redesigned interface.",
+      pt: "Reescrita completa, em Angular, de um sistema corporativo de gestão empresarial, com foco em performance e interface totalmente redesenhada.",
+      en: "A full Angular rewrite of a corporate business management system, focused on performance and a completely redesigned interface.",
     },
     stack: ["Angular", "TypeScript", "Bootstrap"],
     responsibilities: {
@@ -496,8 +482,8 @@ export const projects: Project[] = [
     tags: ["frontend", "enterpriseSystem", "rewrite"],
     star: {
       situation: {
-        pt: "O sistema de gestão precisava de nova arquitetura, mais performance e interface atualizada.",
-        en: "The management system needed a new architecture, better performance and an updated interface.",
+        pt: "O sistema de gestão precisava de mais performance e de uma interface atualizada.",
+        en: "The management system needed better performance and an updated interface.",
       },
       task: {
         pt: "Reescrever o frontend por completo.",
@@ -508,17 +494,11 @@ export const projects: Project[] = [
         en: "Screens, optimizations and bug fixes as a Frontend Developer.",
       },
       result: {
-        pt: "Nova arquitetura Angular em módulos independentes, performance otimizada e UI totalmente redesenhada.",
-        en: "A new Angular architecture with independent modules, optimized performance and a fully redesigned UI.",
+        pt: "Nova versão em Angular, com performance otimizada e UI totalmente redesenhada.",
+        en: "A new Angular version with optimized performance and a fully redesigned UI.",
       },
     },
     source: { kind: "corporate" },
     experience: "max-data",
   },
 ];
-
-/**
- * Espaço reservado da seção "Meus projetos". Não é renderizado em produção
- * até ser substituído por um projeto de verdade.
- */
-export const upcomingProject = pending("PROJETO_DEVOPS");

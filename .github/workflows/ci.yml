@@ -75,6 +75,15 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
 
+      # Erros de hidratação só aparecem em modo dev: sobe um next dev à parte.
+      - name: Testes de hidratação (next dev)
+        run: |
+          npx next dev -p 3200 &
+          npx --yes wait-on@8 --timeout 120000 http://localhost:3200/pt
+          npm run test:hydration
+        env:
+          E2E_DEV_URL: http://localhost:3200
+
       # Lighthouse: mínimo de 90 em todas as categorias (mediana de 3 execuções).
       - run: npx lhci autorun
 

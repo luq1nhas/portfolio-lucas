@@ -48,7 +48,7 @@ export function DesktopNav({
               href={`#${item.id}`}
               aria-current={active === item.id ? "location" : undefined}
               className={cn(
-                "rounded-full px-3 py-1.5 transition-colors",
+                "rounded-full px-3 py-1.5",
                 active === item.id ? "text-fg" : "text-muted hover:text-fg",
               )}
             >

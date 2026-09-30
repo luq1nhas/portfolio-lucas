@@ -28,7 +28,7 @@ export function CopyEmailButton({ email }: { email: string }) {
       <button
         type="button"
         onClick={copy}
-        className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold transition-colors hover:border-fg"
+        className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold hover:border-fg"
       >
         {copied ? (
           <Check className="size-4 text-signal" aria-hidden />

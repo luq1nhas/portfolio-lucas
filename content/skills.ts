@@ -18,17 +18,19 @@ export const skillTiers: SkillTier[] = [
           "agente-suporte",
           "agente-auditoria",
           "agente-convencoes",
-          "sgd-municipios",
+          "new-code",
         ],
       },
-      { label: "Embeddings", evidence: ["sgd-municipios", "new-code"] },
-      { label: "Chunking", evidence: ["sgd-municipios", "new-code"] },
+      // Componentes internos de projetos de empresas apontam para a experiência,
+      // não para o produto, para não descrever a arquitetura do sistema.
+      { label: "Embeddings", evidence: ["new-code"] },
+      { label: "Chunking", evidence: ["new-code"] },
       {
         label: {
           pt: "Busca vetorial (pgvector)",
           en: "Vector search (pgvector)",
         },
-        evidence: ["sgd-municipios"],
+        evidence: ["new-code"],
       },
       {
         label: "Azure OpenAI",
@@ -54,7 +56,7 @@ export const skillTiers: SkillTier[] = [
           pt: "Streaming de respostas (SSE)",
           en: "Response streaming (SSE)",
         },
-        evidence: ["iron"],
+        evidence: ["mjv"],
       },
       {
         label: {
@@ -125,7 +127,7 @@ export const skillTiers: SkillTier[] = [
           pt: "Filas assíncronas (pg-boss, SQS)",
           en: "Async queues (pg-boss, SQS)",
         },
-        evidence: ["sgd-municipios", "iron", "cnpj-alfanumerico"],
+        evidence: ["new-code", "mjv"],
       },
       { label: "Tailwind CSS", evidence: ["sgd-municipios", "mjv"] },
     ],
@@ -135,11 +137,11 @@ export const skillTiers: SkillTier[] = [
     level: 2,
     skills: [
       { label: "Docker", evidence: ["sgd-municipios", "iron"] },
-      { label: "Docker Compose", evidence: ["sgd-municipios", "new-code"] },
+      { label: "Docker Compose", evidence: ["new-code"] },
       { label: "GitHub Actions (CI/CD)", evidence: ["sgd-municipios"] },
       {
         label: { pt: "Deploy em VPS", en: "VPS deployment" },
-        evidence: ["sgd-municipios"],
+        evidence: ["new-code"],
       },
       { label: "AWS (Cognito, SQS, S3, DynamoDB, SAM)", evidence: ["iron"] },
       // Nginx está no brief, mas nenhum projeto ou experiência registra o uso.
@@ -149,7 +151,7 @@ export const skillTiers: SkillTier[] = [
       { label: "Vitest", evidence: ["sgd-municipios", "iron"] },
       { label: "Supertest", evidence: ["sgd-municipios", "iron"] },
       { label: "Playwright", evidence: ["sgd-municipios", "iron"] },
-      { label: "TDD", evidence: ["sgd-municipios", "iron"] },
+      { label: "TDD", evidence: ["new-code", "mjv"] },
       { label: "Conventional Commits", evidence: ["sgd-municipios"] },
       {
         label: {
@@ -164,24 +166,24 @@ export const skillTiers: SkillTier[] = [
     id: "architecture",
     level: 2,
     skills: [
-      { label: "Clean Architecture", evidence: ["iron"] },
+      { label: "Clean Architecture", evidence: ["mjv"] },
       {
         label: { pt: "Microsserviços", en: "Microservices" },
-        evidence: ["iron"],
+        evidence: ["mjv"],
       },
       {
         label: { pt: "Monólito modular", en: "Modular monolith" },
-        evidence: ["sgd-municipios"],
+        evidence: ["new-code"],
       },
-      { label: "Monorepo", evidence: ["sgd-municipios"] },
+      { label: "Monorepo", evidence: ["new-code"] },
       {
         label: {
           pt: "Multi-tenancy com Row-Level Security",
           en: "Multi-tenancy with Row-Level Security",
         },
-        evidence: ["sgd-municipios", "iron", "new-code"],
+        evidence: ["new-code", "mjv"],
       },
-      { label: "RBAC", evidence: ["sgd-municipios", "iron"] },
+      { label: "RBAC", evidence: ["new-code", "mjv"] },
       { label: "BFF", evidence: ["ciandt"] },
       { label: "SOLID", evidence: ["mjv", "ciandt"] },
       { label: "Design patterns", evidence: ["mjv"] },

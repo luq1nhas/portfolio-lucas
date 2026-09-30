@@ -94,25 +94,28 @@ export async function CaseStudy({
         </div>
       </header>
 
-      <Block title={t("architecture")}>
-        <ArchitectureDiagram
-          width={diagram.width}
-          height={diagram.height}
-          caption={diagram.caption[locale]}
-          mineLabel={t("mine")}
-          scrollHint={t("diagramScroll")}
-          nodes={diagram.nodes.map((n) => ({
-            ...n,
-            w: n.w ?? 170,
-            label: localize(n.label, locale),
-            sub: n.sub && localize(n.sub, locale),
-          }))}
-          edges={diagram.edges.map((e) => ({
-            ...e,
-            label: e.label && localize(e.label, locale),
-          }))}
-        />
-      </Block>
+      {/* Só projetos pessoais têm diagrama (arquitetura de empresa é confidencial). */}
+      {diagram && (
+        <Block title={t("architecture")}>
+          <ArchitectureDiagram
+            width={diagram.width}
+            height={diagram.height}
+            caption={diagram.caption[locale]}
+            mineLabel={t("mine")}
+            scrollHint={t("diagramScroll")}
+            nodes={diagram.nodes.map((n) => ({
+              ...n,
+              w: n.w ?? 170,
+              label: localize(n.label, locale),
+              sub: n.sub && localize(n.sub, locale),
+            }))}
+            edges={diagram.edges.map((e) => ({
+              ...e,
+              label: e.label && localize(e.label, locale),
+            }))}
+          />
+        </Block>
+      )}
 
       <Block title={t("starLabel")}>
         <dl className="grid gap-6">

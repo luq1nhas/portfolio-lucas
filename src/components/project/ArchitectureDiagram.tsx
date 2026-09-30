@@ -59,8 +59,8 @@ function clip(from: ResolvedNode, to: ResolvedNode) {
 }
 
 /**
- * Diagrama de arquitetura em SVG. O fluxo principal tem um sinal animado
- * (desligado com movimento reduzido). Passar o mouse sobre um componente
+ * Diagrama de arquitetura em SVG. O fluxo principal é destacado em verde.
+ * Passar o mouse sobre um componente
  * destaca suas conexões. A legenda descreve o fluxo em texto.
  */
 export function ArchitectureDiagram({
@@ -127,11 +127,7 @@ export function ArchitectureDiagram({
             const mid = { x: (start.x + end.x) / 2, y: (start.y + end.y) / 2 };
             const key = `${edge.from}-${edge.to}`;
             return (
-              <g
-                key={key}
-                className="transition-opacity duration-200"
-                opacity={connected(edge) ? 1 : 0.2}
-              >
+              <g key={key} className="" opacity={connected(edge) ? 1 : 0.2}>
                 <line
                   x1={start.x}
                   y1={start.y}
@@ -151,7 +147,6 @@ export function ArchitectureDiagram({
                     stroke="var(--signal)"
                     strokeWidth={2}
                     strokeLinecap="round"
-                    className="edge-pulse"
                   />
                 )}
                 {edge.label && (
@@ -188,7 +183,7 @@ export function ArchitectureDiagram({
                 key={node.id}
                 onPointerEnter={() => setHovered(node.id)}
                 onPointerLeave={() => setHovered(null)}
-                className="cursor-default transition-opacity duration-200"
+                className="cursor-default"
                 opacity={nodeActive(node.id) ? 1 : 0.35}
               >
                 {node.mine && (
