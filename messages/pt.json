@@ -122,7 +122,7 @@
     "linkedin": "LinkedIn",
     "github": "GitHub",
     "resumePt": "Currículo (PT)",
-    "resumeEn": "Résumé (EN)",
+    "resumeEn": "Currículo (EN)",
     "whatsappMessage": "Olá Lucas, vi seu portfólio e gostaria de conversar sobre uma oportunidade.",
     "copyEmail": "Copiar e-mail",
     "copied": "E-mail copiado",
@@ -158,5 +158,9 @@
   "NotFound": {
     "title": "Página não encontrada",
     "back": "Voltar ao início"
+  },
+  "Og": {
+    "alt": "Lucas Vieira, Desenvolvedor Full Stack especializado em IA aplicada: agentes, RAG e LLMs em produção.",
+    "caseAlt": "Estudo de caso de {project}, por Lucas Vieira."
   }
 }

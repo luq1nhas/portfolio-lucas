@@ -2,7 +2,7 @@
 
 Landing page de portfólio de **Lucas Vieira**, Desenvolvedor Full Stack especializado em IA aplicada (agentes, RAG e LLMs em produção).
 
-> 🚧 Em construção, por etapas: **estrutura** ✅ → **conteúdo** ✅ → i18n → interatividade → otimização.
+> 🚧 Em construção, por etapas: **estrutura** ✅ → **conteúdo** ✅ → **i18n** ✅ → interatividade → otimização.
 
 ## Stack
 
@@ -42,6 +42,8 @@ src/
 - **Mapa de evidências.** Cada skill em `content/skills.ts` aponta para os projetos e experiências em que foi usada. Clicar numa tecnologia mostra essa prova de uso. Skill sem evidência não é exibida (exceto "Em aprendizado").
 - **Placeholders explícitos.** Informação pendente é marcada com `pending("NOME")`: aparece como {{NOME}} em desenvolvimento e some em produção. O script `check:placeholders` falha a CI se algum chegar ao HTML final.
 - **Conteúdo separado da interface.** Projetos, experiências e stack ficam em `content/` como dados tipados. Os textos de interface ficam em `messages/`. Uma chave de tradução inexistente é erro de compilação (veja `src/i18n/global.d.ts`).
+- **Internacionalização.** Idioma inicial pelo navegador (`Accept-Language`), preferência lembrada em cookie por 1 ano e troca sem recarregar. Cada página tem hreflang e `x-default`, e o sitemap lista as duas versões. `check:i18n` falha a CI se `pt.json` e `en.json` divergirem em chaves ou variáveis; no conteúdo, o tipo `Localized<T>` obriga as duas línguas.
+- **Imagens de compartilhamento.** Uma imagem Open Graph por idioma e por estudo de caso, gerada no build com `next/og`, na fonte Geist e com a mesma rede de agentes do hero (`src/components/hero/network.ts`).
 - **Tema sem "piscar".** Um script inline aplica o tema salvo antes da primeira pintura. O tema padrão é o escuro.
 - **Renderização estática.** As duas versões de idioma são pré-renderizadas no build.
 
@@ -61,6 +63,7 @@ npm run dev          # http://localhost:3000 → redireciona para /pt ou /en
 | `npm run typecheck`          | gera os tipos de rota e roda `tsc --noEmit` |
 | `npm run format:check`       | Prettier                                    |
 | `npm run check:placeholders` | falha se houver {{placeholder}} no build    |
+| `npm run check:i18n`         | falha se pt.json e en.json divergirem       |
 
 ### Variáveis de ambiente
 

@@ -8,7 +8,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { ThemeScript } from "@/components/layout/ThemeScript";
 import { htmlLang, routing } from "@/i18n/routing";
-import { siteUrl } from "@/lib/site";
+import { baseOpenGraph, siteUrl } from "@/lib/site";
 import "../globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -47,12 +47,12 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      type: "website",
-      locale: htmlLang[locale].replace("-", "_"),
+      ...baseOpenGraph(locale),
       title: t("title"),
       description: t("description"),
       url: `/${locale}`,
     },
+    twitter: { card: "summary_large_image" },
   };
 }
 

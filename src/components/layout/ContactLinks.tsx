@@ -1,5 +1,5 @@
 import { Download, Mail } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import type { ComponentType } from "react";
 import { profile } from "@content/profile";
 import {
@@ -22,6 +22,26 @@ type ContactLink = {
 /** Conjunto único de contatos: usado no rodapé e na seção Contato. */
 export async function ContactLinks({ className }: { className?: string }) {
   const t = await getTranslations("Contact");
+  const locale = await getLocale();
+
+  // Currículo no idioma da página vem primeiro.
+  const resumes: ContactLink[] = [
+    {
+      label: t("resumePt"),
+      href: profile.resume.pt,
+      Icon: Download,
+      download: true,
+      hrefLang: "pt-BR",
+    },
+    {
+      label: t("resumeEn"),
+      href: profile.resume.en,
+      Icon: Download,
+      download: true,
+      hrefLang: "en",
+    },
+  ];
+  if (locale === "en") resumes.reverse();
 
   const links: ContactLink[] = [
     { label: profile.email, href: mailtoUrl, Icon: Mail },
@@ -43,20 +63,7 @@ export async function ContactLinks({ className }: { className?: string }) {
       Icon: GithubIcon,
       isExternal: true,
     },
-    {
-      label: t("resumePt"),
-      href: profile.resume.pt,
-      Icon: Download,
-      download: true,
-      hrefLang: "pt-BR",
-    },
-    {
-      label: t("resumeEn"),
-      href: profile.resume.en,
-      Icon: Download,
-      download: true,
-      hrefLang: "en",
-    },
+    ...resumes,
   ];
 
   return (

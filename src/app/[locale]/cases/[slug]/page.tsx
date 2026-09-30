@@ -5,6 +5,7 @@ import { getProject, projects } from "@content/index";
 import { CaseView } from "@/components/project/CaseView";
 import { HomeSections } from "@/components/sections/HomeSections";
 import type { Locale } from "@/i18n/routing";
+import { baseOpenGraph } from "@/lib/site";
 
 // Acesso direto (link compartilhado, recarregar a página): a landing inteira
 // é renderizada e o estudo de caso abre por cima, como no clique.
@@ -37,10 +38,12 @@ export async function generateMetadata({
       },
     },
     openGraph: {
+      ...baseOpenGraph(lang),
       title,
       description: project.description[lang],
       url: `/${lang}/cases/${slug}`,
     },
+    twitter: { card: "summary_large_image" },
   };
 }
 

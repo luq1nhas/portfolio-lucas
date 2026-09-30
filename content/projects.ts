@@ -87,7 +87,7 @@ export const projects: Project[] = [
     title: { pt: "SGD-Municípios", en: "SGD-Municípios" },
     tagline: {
       pt: "Plataforma GovTech de Processo Eletrônico",
-      en: "GovTech e-Process Platform",
+      en: "GovTech Digital Case Management Platform",
     },
     context: {
       org: "New Code",
@@ -373,12 +373,12 @@ export const projects: Project[] = [
     section: "contribution",
     title: {
       pt: "Agente de Convenções Coletivas",
-      en: "Collective Agreements Agent",
+      en: "Labor Agreements Agent",
     },
     context: { org: MJV, period: MJV_PERIOD },
     description: {
       pt: "Agente de IA para consulta de leis e convenções coletivas de diferentes áreas, usando um crawler e busca semântica.",
-      en: "An AI agent for looking up laws and collective labor agreements across different sectors, using a crawler and semantic search.",
+      en: "An AI agent for looking up laws and collective bargaining agreements across different sectors, using a crawler and semantic search.",
     },
     stack: ["NestJS", "Azure AI", "RAG", "React"],
     responsibilities: {
@@ -397,7 +397,7 @@ export const projects: Project[] = [
     star: {
       situation: {
         pt: "Consultar leis e convenções coletivas de diferentes áreas era lento e disperso.",
-        en: "Looking up laws and collective agreements across different sectors was slow and scattered.",
+        en: "Looking up laws and collective bargaining agreements across different sectors was slow and scattered.",
       },
       task: {
         pt: "Oferecer consulta centralizada via crawler e busca semântica.",
@@ -409,7 +409,7 @@ export const projects: Project[] = [
       },
       result: {
         pt: "Consulta de convenções centralizada em uma interface de busca semântica.",
-        en: "Collective agreement lookup centralized in a semantic search interface.",
+        en: "Labor agreement lookup centralized in a semantic search interface.",
       },
     },
     source: { kind: "corporate" },

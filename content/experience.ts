@@ -15,7 +15,7 @@ export const experience: Experience[] = [
         "Multi-tenancy com Row-Level Security, pipeline de IA (OCR → chunking → embeddings), filas assíncronas, CI/CD e deploy com Docker Compose.",
       ],
       en: [
-        "End-to-end development on SGD-Municípios, a GovTech e-process platform for municipalities in Tocantins, Brazil.",
+        "End-to-end development on SGD-Municípios, a GovTech digital case management platform for municipalities in Tocantins, Brazil.",
         "Multi-tenancy with Row-Level Security, an AI pipeline (OCR → chunking → embeddings), async queues, CI/CD and deployment with Docker Compose.",
       ],
     },

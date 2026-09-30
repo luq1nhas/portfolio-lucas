@@ -121,7 +121,7 @@
     "whatsapp": "WhatsApp",
     "linkedin": "LinkedIn",
     "github": "GitHub",
-    "resumePt": "Currículo (PT)",
+    "resumePt": "Résumé (PT)",
     "resumeEn": "Résumé (EN)",
     "whatsappMessage": "Hi Lucas, I saw your portfolio and would like to talk about an opportunity.",
     "copyEmail": "Copy email",
@@ -158,5 +158,9 @@
   "NotFound": {
     "title": "Page not found",
     "back": "Back to home"
+  },
+  "Og": {
+    "alt": "Lucas Vieira, Full Stack Developer specialized in applied AI: agents, RAG and LLMs in production.",
+    "caseAlt": "Case study: {project}, by Lucas Vieira."
   }
 }

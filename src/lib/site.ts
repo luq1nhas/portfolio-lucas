@@ -1,3 +1,5 @@
+import { routing, type Locale } from "@/i18n/routing";
+
 /** URL canônica do site. Defina NEXT_PUBLIC_SITE_URL quando o domínio próprio existir. */
 export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -27,3 +29,17 @@ export const navSectionIds = [
   "stack",
   "contact",
 ] as const satisfies readonly SectionId[];
+
+/** Campos de Open Graph comuns a todas as páginas (o Next não mescla objetos aninhados). */
+export function baseOpenGraph(locale: Locale) {
+  return {
+    type: "website" as const,
+    siteName: "Lucas Vieira",
+    locale: ogLocale[locale],
+    alternateLocale: routing.locales
+      .filter((l) => l !== locale)
+      .map((l) => ogLocale[l]),
+  };
+}
+
+const ogLocale: Record<Locale, string> = { pt: "pt_BR", en: "en_US" };
