@@ -1,14 +1,13 @@
 import type { Experience } from "./types";
 
-/** Linha do tempo, da mais recente para a mais antiga. */
 export const experience: Experience[] = [
   {
     id: "new-code",
     role: { pt: "Desenvolvedor Full Stack", en: "Full Stack Developer" },
     org: "New Code",
     period: { pt: "Abr/2026 – Atual", en: "Apr 2026 – Present" },
-    start: "2026-04",
-    badge: { pt: "PJ", en: "Contractor" },
+    startMonth: "2026-04",
+    employmentType: { pt: "PJ", en: "Contractor" },
     bullets: {
       pt: [
         "Desenvolvimento de ponta a ponta no SGD-Municípios, plataforma GovTech de processo eletrônico para prefeituras do Tocantins.",
@@ -27,8 +26,7 @@ export const experience: Experience[] = [
     role: { pt: "Desenvolvedor Full Stack", en: "Full Stack Developer" },
     org: "MJV Technology & Innovation",
     period: { pt: "Jul/2025 – Jul/2026", en: "Jul 2025 – Jul 2026" },
-    start: "2025-07",
-    end: "2026-07",
+    startMonth: "2025-07",
     bullets: {
       pt: [
         "Desenvolveu agentes de IA com Azure OpenAI e LangChain que reduziram o tempo de integração de software de 8 semanas para 1 semana.",
@@ -62,8 +60,7 @@ export const experience: Experience[] = [
     },
     org: "CI&T",
     period: { pt: "Mar/2025 – Jul/2025", en: "Mar 2025 – Jul 2025" },
-    start: "2025-03",
-    end: "2025-07",
+    startMonth: "2025-03",
     bullets: {
       pt: [
         "Sistemas web com Next.js, NestJS e Spring Boot.",
@@ -82,8 +79,7 @@ export const experience: Experience[] = [
     role: { pt: "Desenvolvedor Frontend", en: "Frontend Developer" },
     org: "Max Data Sistemas",
     period: { pt: "Jul/2024 – Fev/2025", en: "Jul 2024 – Feb 2025" },
-    start: "2024-07",
-    end: "2025-02",
+    startMonth: "2024-07",
     bullets: {
       pt: [
         "Telas, otimizações e correção de bugs na reescrita do Max Web V2 em Angular.",
@@ -101,7 +97,7 @@ export const experience: Experience[] = [
     role: { pt: "Participante", en: "Participant" },
     org: "Campus Mobile Claro",
     period: { pt: "2024", en: "2024" },
-    start: "2024",
+    startMonth: "2024",
     bullets: {
       pt: [
         "Desenvolveu o TEAMO, app em React Native para inclusão e segurança de crianças com TEA.",
@@ -116,8 +112,7 @@ export const experience: Experience[] = [
     role: { pt: "Desenvolvedor de Sites", en: "Website Developer" },
     org: "qAtive Tecnologia e Marketing",
     period: { pt: "Nov/2023 – Abr/2024", en: "Nov 2023 – Apr 2024" },
-    start: "2023-11",
-    end: "2024-04",
+    startMonth: "2023-11",
     bullets: {
       pt: [
         "Sites em WordPress e PHP; criou modelo de receita recorrente com contratos de manutenção e identidades visuais.",

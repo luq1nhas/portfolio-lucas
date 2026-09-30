@@ -4,10 +4,6 @@ import type { Project } from "@content/types";
 import { Link } from "@/i18n/navigation";
 import { external } from "@/lib/links";
 
-/**
- * Botões do rodapé do card: "Ver demo" (quando houver) e "Ver detalhes".
- * `demoOnly` é usado dentro do próprio estudo de caso.
- */
 export async function ProjectActions({
   project,
   demoOnly = false,
@@ -26,7 +22,7 @@ export async function ProjectActions({
         <a
           href={project.demo.url}
           {...external}
-          aria-describedby={project.demo.coldStart ? hintId : undefined}
+          aria-describedby={project.demo.hasColdStart ? hintId : undefined}
           className="inline-flex items-center gap-1.5 rounded-full bg-signal px-4 py-2 text-sm font-semibold text-on-signal"
         >
           {t("viewDemo")}
@@ -44,7 +40,7 @@ export async function ProjectActions({
           <ArrowRight className="size-4" aria-hidden />
         </Link>
       )}
-      {project.demo?.coldStart && (
+      {project.demo?.hasColdStart && (
         <p id={hintId} className="w-full text-xs text-muted">
           {t("coldStart")}
         </p>

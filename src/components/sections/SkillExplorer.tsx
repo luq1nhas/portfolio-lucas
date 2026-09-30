@@ -103,7 +103,6 @@ const tierIcon: Record<TierView["id"], LucideIcon> = {
   learning: Sprout,
 };
 
-/** Cabeçalho do card: ícone, nome da categoria e quantidade de tecnologias. */
 function TierHeader({ tier, icon }: { tier: TierView; icon: React.ReactNode }) {
   return (
     <div className="flex items-center gap-3">
@@ -183,7 +182,6 @@ export function SkillExplorer({ tiers }: { tiers: TierView[] }) {
                   className={cn(
                     "rounded-full border",
                     skillSize[tier.level],
-                    // Estilo de selecionado substitui (não soma) o do nível, para não haver conflito de cor.
                     pressed
                       ? "border-signal bg-signal text-on-signal"
                       : skillTone[tier.level],

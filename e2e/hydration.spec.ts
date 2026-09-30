@@ -1,10 +1,5 @@
 import { expect, test } from "@playwright/test";
 
-// Divergências de hidratação só são reportadas pelo React em desenvolvimento,
-// então este teste roda contra `next dev` (projeto "hydration" no
-// playwright.config.ts). Cobre as preferências que só existem no navegador:
-// movimento reduzido, tema salvo e largura da tela.
-
 const paths = ["/pt", "/en", "/pt/cases/nexus", "/en/cases/sgd-municipios"];
 
 for (const reducedMotion of ["reduce", "no-preference"] as const) {
@@ -39,8 +34,6 @@ for (const reducedMotion of ["reduce", "no-preference"] as const) {
   }
 }
 
-// A troca de idioma recria o layout raiz no cliente: não pode gerar avisos
-// (ex.: <script> renderizado por componente) nem perder o tema salvo.
 test("trocar de idioma não gera erros e mantém o tema", async ({ browser }) => {
   const context = await browser.newContext();
   await context.addInitScript(() => localStorage.setItem("theme", "light"));

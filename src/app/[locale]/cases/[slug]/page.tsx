@@ -7,9 +7,6 @@ import { HomeSections } from "@/components/sections/HomeSections";
 import type { Locale } from "@/i18n/routing";
 import { baseOpenGraph } from "@/lib/site";
 
-// Acesso direto (link compartilhado, recarregar a página): a landing inteira
-// é renderizada e o estudo de caso abre por cima, como no clique.
-
 export const dynamicParams = false;
 
 export function generateStaticParams() {

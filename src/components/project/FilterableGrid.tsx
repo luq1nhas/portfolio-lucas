@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 import { useCallback, useSyncExternalStore, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-// O filtro vive na URL (?tag=…): é a fonte da verdade e permite compartilhar o link.
 const FILTER_EVENT = "portfolio:filterchange";
 
 function subscribe(onChange: () => void) {
@@ -22,7 +21,6 @@ type TagOption = { id: string; label: string };
 type Props = {
   items: Item[];
   tags: TagOption[];
-  /** Parâmetro da URL que guarda o filtro, para o link poder ser compartilhado. */
   param: string;
   gridClassName: string;
 };
@@ -33,7 +31,6 @@ export function FilterableGrid({ items, tags, param, gridClassName }: Props) {
     () => new URLSearchParams(window.location.search).get(param),
     [param],
   );
-  // No servidor (HTML estático) não há filtro.
   const fromUrl = useSyncExternalStore(subscribe, getSnapshot, () => null);
   const active = tags.some((tag) => tag.id === fromUrl) ? fromUrl : null;
 
@@ -84,7 +81,6 @@ export function FilterableGrid({ items, tags, param, gridClassName }: Props) {
         </div>
       )}
       <div className={gridClassName}>
-        {/* Cada item é um subgrid de 7 linhas (como o card), para manter o alinhamento. */}
         {visible.map((item) => (
           <div
             key={item.id}

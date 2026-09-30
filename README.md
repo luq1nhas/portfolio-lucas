@@ -39,18 +39,19 @@ src/
 │  └─ opengraph-image.tsx      share image per language (and per case study)
 ├─ components/
 │  ├─ layout/          header, anchor navigation, theme, language, footer
-│  ├─ hero/            hero; network.ts holds the "agent network" drawn in share images
+│  ├─ hero/            hero section
 │  ├─ project/         cards, category filter, case study panel, diagrams
 │  ├─ sections/        landing sections (about, projects, experience, stack…)
-│  └─ ui/              primitives (Section, pills, icons, placeholder)
-└─ lib/                helpers (links, site URL, Open Graph rendering)
+│  └─ ui/              primitives (Section, pills, icons)
+└─ lib/               helpers (links, site URL, theme, Open Graph images and their network)
 ```
 
 ### Key decisions
 
 - **One page, deep-linkable details.** The header scrolls to anchors. "View details" opens the case study as an overlay using parallel + intercepting routes, so each case has its own URL (`/en/cases/nexus`) that can be shared and is counted as a page view by Vercel Analytics, with no paid custom events. Opening that URL directly renders the landing page with the panel already open.
 - **Evidence map.** Every skill in `content/skills.ts` points to the projects and roles where it was used; clicking a technology shows that proof. Skills without evidence are not rendered (except "Currently learning").
-- **Explicit placeholders.** Missing information is marked with `pending("NAME")`: shown as `{{NAME}}` in development, omitted in production. `check:placeholders` and an e2e test fail CI if one reaches the final HTML.
+- **No placeholders in production.** Unfinished content never ships: `check:placeholders` and an e2e test fail CI if any `{{…}}` reaches the final HTML.
+- **Self-documenting code.** No comments in the codebase: names carry the intent (`cardResponsibilities`, `highlightedResult`, `DemoWarmUp`, `applyThemeBeforeFirstPaint`), and the rules from the brief are executable tests in `content/content.test.ts`.
 - **Content separate from UI.** Projects, roles and skills live in `content/` as typed data; UI strings live in `messages/`. A missing translation key is a compile error, `Localized<T>` forces both languages in content, and `check:i18n` catches key or variable drift between `pt.json` and `en.json`.
 - **No animations.** A deliberate choice for a professional portfolio: content is static and immediately visible, hover states change instantly, and anchors jump straight to their section.
 - **Architecture diagrams only for personal projects.** `content/diagrams.ts` describes components and flows as data; the SVG highlights the main flow and the connections of the hovered component. Company projects never show architecture: their case studies describe what I did and public product features only, with no internal metrics or security details.

@@ -7,7 +7,6 @@ import { SourceBadge } from "./SourceBadge";
 
 const MAX_CHIPS = 6;
 
-/** Blocos do card, na ordem fixa do brief. Compartilhados com o card em destaque. */
 export async function getProjectCardParts({ project }: { project: Project }) {
   const t = await getTranslations("Project");
   const tTags = await getTranslations("Tags");
@@ -17,7 +16,6 @@ export async function getProjectCardParts({ project }: { project: Project }) {
   const hidden = project.stack.length - chips.length;
 
   return {
-    // 1. Título
     title: (
       <div className="pr-6">
         <h3 className="text-xl font-semibold tracking-tight">
@@ -30,7 +28,6 @@ export async function getProjectCardParts({ project }: { project: Project }) {
         )}
       </div>
     ),
-    // 2. Subtítulo: empresa e período, ou projeto pessoal
     subtitle: (
       <p className="text-sm text-muted">
         {project.context === "personal"
@@ -38,13 +35,11 @@ export async function getProjectCardParts({ project }: { project: Project }) {
           : `${project.context.org} · ${project.context.period[locale]}`}
       </p>
     ),
-    // 3. Descrição
     description: (
       <p className="text-sm leading-relaxed text-pretty">
         {project.description[locale]}
       </p>
     ),
-    // 4. Stack
     stack: (
       <ul
         aria-label={t("stack")}
@@ -67,12 +62,11 @@ export async function getProjectCardParts({ project }: { project: Project }) {
         )}
       </ul>
     ),
-    // 5. Responsabilidades (+ resultado em destaque)
     responsibilities: (
       <div>
         <h4 className="sr-only">{t("responsibilities")}</h4>
         <ul className="space-y-1.5 text-sm text-muted">
-          {project.responsibilities[locale].map((item) => (
+          {project.cardResponsibilities[locale].map((item) => (
             <li key={item} className="flex gap-2">
               <span
                 aria-hidden
@@ -82,15 +76,14 @@ export async function getProjectCardParts({ project }: { project: Project }) {
             </li>
           ))}
         </ul>
-        {project.result && (
+        {project.highlightedResult && (
           <p className="mt-3 rounded-lg border-l-2 border-result bg-result-soft px-3 py-2 text-sm font-medium text-result">
             <span className="sr-only">{t("result")}: </span>
-            {project.result[locale]}
+            {project.highlightedResult[locale]}
           </p>
         )}
       </div>
     ),
-    // 6. Tags de categoria
     tags: (
       <ul
         aria-label={t("tags")}
@@ -103,7 +96,6 @@ export async function getProjectCardParts({ project }: { project: Project }) {
         ))}
       </ul>
     ),
-    // Rodapé: selo do código + ações
     footer: (
       <footer className="flex flex-col gap-3 border-t border-border pt-4">
         <SourceBadge source={project.source} />
@@ -116,7 +108,6 @@ export async function getProjectCardParts({ project }: { project: Project }) {
 export const cardShell =
   "group relative rounded-2xl border border-border bg-surface p-6 hover:border-signal/50";
 
-/** Nó da "rede" no canto do card: acende no hover. */
 export function CardNode() {
   return (
     <span
@@ -126,10 +117,6 @@ export function CardNode() {
   );
 }
 
-/**
- * Card padrão. Usa subgrid (7 linhas) para alinhar título, stack, tags e rodapé
- * entre os cards da mesma linha da grade.
- */
 export async function ProjectCard({ project }: { project: Project }) {
   const parts = await getProjectCardParts({ project });
 

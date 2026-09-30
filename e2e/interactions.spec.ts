@@ -31,7 +31,6 @@ test.describe("estudo de caso", () => {
     ).toBeAttached();
     const dialog = page.getByRole("dialog", { name: "SGD-Municípios" });
     await expect(dialog).toBeVisible();
-    // Projeto de empresa: sem diagrama de arquitetura (informação confidencial).
     await expect(dialog.getByText("Arquitetura")).toHaveCount(0);
     await expect(dialog.getByText("Architecture")).toHaveCount(0);
     await dialog.getByRole("button", { name: "Close" }).click();

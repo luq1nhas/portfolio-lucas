@@ -1,40 +1,28 @@
 "use client";
 
 import { useLayoutEffect } from "react";
+import {
+  applyStoredTheme,
+  DEFAULT_THEME,
+  THEME_STORAGE_KEY,
+} from "@/lib/theme";
 
-/** Aplica o tema salvo (padrão: escuro). A escolha do visitante fica em localStorage. */
-function applyStoredTheme() {
-  let theme = "dark";
-  try {
-    const saved = localStorage.getItem("theme");
-    if (saved === "light" || saved === "dark") theme = saved;
-  } catch {
-    // Armazenamento bloqueado: fica o padrão.
-  }
-  document.documentElement.dataset.theme = theme;
-}
+const isServer = typeof window === "undefined";
 
-const script = `(${applyStoredTheme.toString()})()`;
+const scriptArguments = [THEME_STORAGE_KEY, DEFAULT_THEME]
+  .map((value) => JSON.stringify(value))
+  .join(", ");
 
-/**
- * Tema sem "piscar", seguindo o padrão "Preventing flash before hydration" do Next.js:
- *
- * - No HTML do servidor, o script é executável e aplica o tema durante o parse,
- *   antes da primeira pintura.
- * - Quando o React renderiza no cliente (a troca de idioma recria o layout raiz
- *   e o <html>), o script vira `text/plain`: não roda, e o React não emite o
- *   aviso de <script> em componente. `suppressHydrationWarning` aceita a
- *   diferença de `type`. Nesse caso quem reaplica o tema é o useLayoutEffect,
- *   que também roda antes da pintura.
- */
+const applyThemeBeforeFirstPaint = `(${applyStoredTheme})(${scriptArguments})`;
+
 export function ThemeScript() {
-  useLayoutEffect(applyStoredTheme, []);
+  useLayoutEffect(() => applyStoredTheme(THEME_STORAGE_KEY, DEFAULT_THEME), []);
 
   return (
     <script
-      type={typeof window === "undefined" ? "text/javascript" : "text/plain"}
+      type={isServer ? "text/javascript" : "text/plain"}
       suppressHydrationWarning
-      dangerouslySetInnerHTML={{ __html: script }}
+      dangerouslySetInnerHTML={{ __html: applyThemeBeforeFirstPaint }}
     />
   );
 }

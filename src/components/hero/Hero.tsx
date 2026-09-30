@@ -9,7 +9,6 @@ export async function Hero() {
     <section
       id="top"
       aria-labelledby="hero-title"
-      // Ocupa a primeira tela inteira (menos o header), com o conteúdo centralizado.
       className="flex min-h-[calc(100svh-4rem)] items-center pt-28 pb-20 sm:pt-32"
     >
       <div className="mx-auto flex max-w-4xl flex-col items-center px-4 text-center sm:px-6">

@@ -1,20 +1,16 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
+import { saveTheme, type Theme } from "@/lib/theme";
 
 export function ThemeToggle({ label }: { label: string }) {
   function toggle() {
     const root = document.documentElement;
-    const next = root.dataset.theme === "light" ? "dark" : "light";
+    const next: Theme = root.dataset.theme === "light" ? "dark" : "light";
     root.dataset.theme = next;
-    try {
-      localStorage.setItem("theme", next);
-    } catch {
-      // Armazenamento bloqueado: o tema vale só para esta visita.
-    }
+    saveTheme(next);
   }
 
-  // Os dois ícones são renderizados e o CSS mostra o certo, evitando divergência de hidratação.
   return (
     <button
       type="button"

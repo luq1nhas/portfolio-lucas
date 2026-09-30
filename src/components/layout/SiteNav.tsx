@@ -6,7 +6,6 @@ import { cn } from "@/lib/cn";
 
 type NavItem = { id: string; label: string };
 
-/** Destaca no menu a seção que está no meio da tela. */
 function useActiveSection(ids: string[]) {
   const [active, setActive] = useState<string | null>(null);
   const key = ids.join(",");

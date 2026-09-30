@@ -92,13 +92,11 @@
     "platformNote": "Features of the platform and the team, not individual responsibilities.",
     "actionSeeBelow": "Detailed under “What I did” below.",
     "architecture": "Architecture",
-    "mine": "My part",
     "diagramScroll": "Swipe to see the full diagram →"
   },
   "Experience": {
     "parallel": "In parallel",
-    "relatedProjects": "Projects",
-    "current": "Present"
+    "relatedProjects": "Projects"
   },
   "Stack": {
     "tier_ai": "Core expertise: applied AI",
@@ -118,7 +116,6 @@
     "translated": "Translated from the original in Portuguese."
   },
   "Contact": {
-    "email": "Email",
     "whatsapp": "WhatsApp",
     "linkedin": "LinkedIn",
     "github": "GitHub",

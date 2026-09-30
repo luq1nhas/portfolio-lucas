@@ -4,9 +4,6 @@ import { getProject, projects } from "@content/index";
 import { CaseView } from "@/components/project/CaseView";
 import type { Locale } from "@/i18n/routing";
 
-// Clique em "Ver detalhes" na landing: a rota /cases/[slug] é interceptada e o
-// estudo de caso abre como painel, sem sair da página.
-
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }

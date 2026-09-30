@@ -1,8 +1,6 @@
 import { ImageResponse } from "next/og";
 import { ogColors } from "@/lib/og";
 
-// Ícone para a tela inicial do iOS (a mesma rede do favicon, em PNG).
-
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 

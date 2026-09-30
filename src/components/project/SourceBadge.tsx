@@ -16,7 +16,7 @@ export async function SourceBadge({ source }: { source: Source }) {
     );
   }
 
-  if (source.kind === "open") {
+  if (source.kind === "openSource") {
     return (
       <a
         href={source.repoUrl}
@@ -29,8 +29,6 @@ export async function SourceBadge({ source }: { source: Source }) {
     );
   }
 
-  // Repositório privado de organização: sem selo. Se um repositório público de
-  // apresentação existir (showcaseUrl), só o link para ele aparece.
   if (!source.showcaseUrl) return null;
   return (
     <a

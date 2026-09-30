@@ -39,18 +39,19 @@ src/
 │  └─ opengraph-image.tsx      imagem de compartilhamento por idioma (e por estudo)
 ├─ components/
 │  ├─ layout/          header, navegação por âncoras, tema, idioma, rodapé
-│  ├─ hero/            hero; network.ts guarda a "rede de agentes" das imagens de compartilhamento
+│  ├─ hero/            seção principal
 │  ├─ project/         cards, filtro, painel do estudo de caso, diagramas
 │  ├─ sections/        seções da landing (sobre, projetos, experiência, stack…)
-│  └─ ui/              primitivas (Section, pílulas, ícones, placeholder)
-└─ lib/                utilitários (links, URL do site, imagens Open Graph)
+│  └─ ui/              primitivas (Section, pílulas, ícones)
+└─ lib/               utilitários (links, URL do site, tema, imagens Open Graph e sua rede)
 ```
 
 ### Decisões
 
 - **Uma página só, com detalhes linkáveis.** O header rola até as âncoras. "Ver detalhes" abre o estudo de caso num painel por cima da página, com rotas paralelas + interceptadas: cada estudo tem URL própria (`/pt/cases/nexus`), que pode ser compartilhada e conta como visualização no Vercel Analytics, sem eventos pagos. Abrir essa URL direto renderiza a landing com o painel aberto.
 - **Mapa de evidências.** Cada skill em `content/skills.ts` aponta para os projetos e experiências em que foi usada; clicar numa tecnologia mostra essa prova. Skill sem evidência não é exibida (exceto "Em aprendizado").
-- **Placeholders explícitos.** Informação pendente é marcada com `pending("NOME")`: aparece como `{{NOME}}` em desenvolvimento e some em produção. `check:placeholders` e um teste e2e falham a CI se algum chegar ao HTML final.
+- **Sem placeholders em produção.** Conteúdo incompleto nunca é publicado: `check:placeholders` e um teste e2e falham a CI se algum `{{…}}` chegar ao HTML final.
+- **Código autoexplicativo.** Sem comentários no código: os nomes carregam a intenção (`cardResponsibilities`, `highlightedResult`, `DemoWarmUp`, `applyThemeBeforeFirstPaint`), e as regras do brief são testes executáveis em `content/content.test.ts`.
 - **Conteúdo separado da interface.** Projetos, experiências e stack ficam em `content/` como dados tipados; os textos de interface, em `messages/`. Chave de tradução inexistente é erro de compilação, `Localized<T>` obriga as duas línguas no conteúdo e `check:i18n` detecta divergência de chaves ou variáveis entre `pt.json` e `en.json`.
 - **Sem animações.** Escolha deliberada para um portfólio profissional: o conteúdo é estático e aparece de imediato, os estados de hover mudam na hora e as âncoras vão direto para a seção.
 - **Diagramas de arquitetura só em projetos pessoais.** `content/diagrams.ts` descreve componentes e fluxos como dados; o SVG destaca o fluxo principal e as conexões do componente sob o cursor. Projetos de empresas nunca mostram arquitetura: o estudo de caso descreve o que eu fiz e recursos públicos do produto, sem métricas internas nem detalhes de segurança.

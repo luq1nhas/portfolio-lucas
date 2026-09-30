@@ -9,9 +9,6 @@ import {
   renderOgImage,
 } from "@/lib/og";
 
-// Imagem de compartilhamento de cada estudo de caso, por idioma (gerada no build).
-
-// A rota da imagem é irmã da página (não herda os params do layout): declara idioma e slug.
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
     projects.map((p) => ({ locale, slug: p.slug })),
@@ -25,7 +22,6 @@ export async function generateImageMetadata({
     | { locale: string; slug: string }
     | Promise<{ locale: string; slug: string }>;
 }) {
-  // params pode chegar como Promise, e vazio na verificação inicial do build.
   const { locale: rawLocale, slug } = await params;
   const locale = ogLocale(rawLocale);
   const project = getProject(slug);

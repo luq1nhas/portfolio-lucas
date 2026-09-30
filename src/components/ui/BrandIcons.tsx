@@ -22,7 +22,6 @@ export const WhatsappIcon = (p: IconProps) => (
   <SimpleIcon path={siWhatsapp.path} {...p} />
 );
 
-// O LinkedIn não é distribuído pelo simple-icons; marca "in" desenhada à mão.
 export function LinkedinIcon({ className }: IconProps) {
   return (
     <svg

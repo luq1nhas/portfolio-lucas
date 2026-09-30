@@ -15,12 +15,9 @@ import { htmlLang, routing } from "@/i18n/routing";
 import { baseOpenGraph, siteUrl } from "@/lib/site";
 import "../globals.css";
 
-// Namespaces usados por componentes de cliente. Só eles vão para o navegador;
-// o resto do texto é renderizado no servidor.
 const clientNamespaces = ["Locale", "Project", "Contact", "Stack"] as const;
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-// Só a fonte do texto principal é pré-carregada; a mono entra com swap.
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -96,10 +93,8 @@ export default async function LocaleLayout({
             {children}
           </main>
           <Footer />
-          {/* Painel do estudo de caso (rota interceptada), por cima da landing. */}
           {modal}
         </NextIntlClientProvider>
-        {/* O script de métricas só existe no ambiente da Vercel. */}
         {process.env.VERCEL && <Analytics />}
       </body>
     </html>

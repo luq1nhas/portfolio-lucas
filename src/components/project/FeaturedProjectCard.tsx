@@ -3,7 +3,6 @@ import type { Project } from "@content/types";
 import { cn } from "@/lib/cn";
 import { CardNode, cardShell, getProjectCardParts } from "./ProjectCard";
 
-/** Card maior, para o destaque principal do site. Mesma ordem de elementos do card padrão. */
 export async function FeaturedProjectCard({ project }: { project: Project }) {
   const parts = await getProjectCardParts({ project });
   const t = await getTranslations("Project");

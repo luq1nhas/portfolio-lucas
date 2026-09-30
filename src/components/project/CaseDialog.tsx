@@ -8,14 +8,8 @@ type Props = {
   children: ReactNode;
   titleId: string;
   labels: { kicker: string; close: string };
-  /**
-   * "intercepted": aberto por clique na landing (rota interceptada) → fechar volta no histórico.
-   * "page": acesso direto pela URL (landing renderizada por trás) → fechar só troca a URL.
-   */
   mode: "intercepted" | "page";
-  /** URL da landing no idioma atual, usada ao fechar no modo "page". */
   homeHref: string;
-  /** Card de origem, para devolver o foco e a rolagem ao fechar. */
   slug: string;
 };
 
@@ -30,7 +24,6 @@ export function CaseDialog({
   const ref = useRef<HTMLDialogElement>(null);
   const router = useRouter();
 
-  /** Botão "Ver detalhes" do card de origem, para onde o foco volta ao fechar. */
   const focusTrigger = useCallback(() => {
     document
       .getElementById(`card-${slug}`)
@@ -41,16 +34,12 @@ export function CaseDialog({
   useEffect(() => {
     const dialog = ref.current;
     if (dialog && !dialog.open) dialog.showModal();
-    // Rede de segurança: se o painel sair da tela com o foco perdido no <body>
-    // (ex.: "voltar" do navegador), devolve o foco ao card de origem.
     return () => {
       if (document.activeElement === document.body) focusTrigger();
     };
   }, [focusTrigger]);
 
   const close = useCallback(() => {
-    // Fecha o <dialog> antes de navegar: a página deixa de ser inerte na hora e o
-    // foco pode voltar ao card de origem. Só então a URL muda.
     ref.current?.close();
     if (mode === "intercepted") {
       router.back();
@@ -70,11 +59,11 @@ export function CaseDialog({
       ref={ref}
       aria-labelledby={titleId}
       onCancel={(e) => {
-        e.preventDefault(); // Esc: fecha pelo mesmo caminho do botão
+        e.preventDefault();
         close();
       }}
       onClick={(e) => {
-        if (e.target === ref.current) close(); // clique no fundo escurecido
+        if (e.target === ref.current) close();
       }}
       className="m-0 h-dvh max-h-none w-full max-w-none bg-transparent text-fg backdrop:bg-black/60 backdrop:backdrop-blur-sm sm:m-auto sm:h-[min(92dvh,960px)] sm:max-w-3xl"
     >
@@ -92,7 +81,6 @@ export function CaseDialog({
             <X className="size-5" aria-hidden />
           </button>
         </div>
-        {/* Focável: sem links no conteúdo, o teclado ainda precisa conseguir rolar. */}
         <div
           tabIndex={0}
           role="region"

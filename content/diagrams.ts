@@ -1,29 +1,23 @@
 import type { Localized, ProjectSlug } from "./types";
 
-// Diagramas de arquitetura dos estudos de caso. Só projetos pessoais: a arquitetura
-// de projetos de empresas é informação confidencial e não é publicada.
-// Coordenadas são o centro de cada caixa.
+export const DIAGRAM_NODE_WIDTH = 170;
+export const DIAGRAM_NODE_HEIGHT = 54;
 
-export type DiagramNode = {
+type DiagramNode = {
   id: string;
   label: string | Localized;
   sub?: string | Localized;
   x: number;
   y: number;
-  /** Largura da caixa (padrão 170). */
   w?: number;
   kind: "client" | "service" | "ai" | "data" | "external";
-  /** Parte em que o Lucas atuou (usado quando a atuação foi parcial). */
-  mine?: boolean;
 };
 
-export type DiagramEdge = {
+type DiagramEdge = {
   from: string;
   to: string;
   label?: string | Localized;
-  /** Fluxo principal: exibe sinal animado percorrendo a aresta. */
   flow?: boolean;
-  /** Relação opcional ou condicional (tracejada). */
   optional?: boolean;
 };
 
@@ -37,7 +31,7 @@ export type Diagram = {
 
 export const diagrams: Partial<Record<ProjectSlug, Diagram>> = {
   nexus: {
-    width: 720,
+    width: 800,
     height: 400,
     caption: {
       pt: "O upload passa por extração direta; só páginas com pouco texto vão para OCR. O conteúdo chega aos três agentes, que chamam o Gemini com texto e imagens.",
@@ -64,7 +58,7 @@ export const diagrams: Partial<Record<ProjectSlug, Diagram>> = {
         id: "db",
         label: "PostgreSQL",
         sub: "Supabase · TypeORM",
-        x: 610,
+        x: 690,
         y: 60,
         kind: "data",
       },
@@ -88,7 +82,7 @@ export const diagrams: Partial<Record<ProjectSlug, Diagram>> = {
         id: "ocr",
         label: "OCR",
         sub: "canvas + Tesseract.js",
-        x: 610,
+        x: 690,
         y: 200,
         kind: "service",
       },
@@ -104,7 +98,7 @@ export const diagrams: Partial<Record<ProjectSlug, Diagram>> = {
         id: "gemini",
         label: "Google Gemini",
         sub: { pt: "multimodal", en: "multimodal" },
-        x: 610,
+        x: 690,
         y: 340,
         kind: "external",
       },

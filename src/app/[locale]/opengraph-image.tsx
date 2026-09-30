@@ -10,9 +10,6 @@ import {
   RichWords,
 } from "@/lib/og";
 
-// Imagem de compartilhamento da landing, uma por idioma (gerada no build).
-
-// A rota da imagem não herda os params do layout: declara os idiomas.
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -22,7 +19,6 @@ export async function generateImageMetadata({
 }: {
   params: { locale: string } | Promise<{ locale: string }>;
 }) {
-  // params pode chegar como Promise, e vazio na verificação inicial do build.
   const { locale } = await params;
   const t = await ogTranslator(ogLocale(locale), "Og");
   return [

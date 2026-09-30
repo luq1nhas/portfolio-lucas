@@ -1,8 +1,6 @@
 import { AxeBuilder } from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
-// Auditoria WCAG 2.2 AA com axe-core, nos dois temas e com o painel aberto.
-
 const tags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 
 async function prepare(page: Page, theme: "dark" | "light") {

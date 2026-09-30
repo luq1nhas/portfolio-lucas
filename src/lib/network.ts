@@ -1,30 +1,25 @@
-// Topologia da "rede de agentes" (coordenadas num quadro 400×400).
-// Usada nas imagens Open Graph (compartilhamento no LinkedIn, WhatsApp…).
-
 export type NetworkNode = {
   x: number;
   y: number;
-  label?: string;
-  /** Rótulo à esquerda do nó (para nós na borda direita). */
-  labelLeft?: boolean;
   active?: boolean;
+  hub?: boolean;
 };
 
 export const nodes: NetworkNode[] = [
-  { x: 200, y: 200, active: true }, // 0: orquestrador
-  { x: 108, y: 118, label: "agent", active: true },
-  { x: 292, y: 106, label: "llm" },
-  { x: 332, y: 222, label: "rag", active: true },
+  { x: 200, y: 200, active: true, hub: true },
+  { x: 108, y: 118, active: true },
+  { x: 292, y: 106 },
+  { x: 332, y: 222, active: true },
   { x: 268, y: 312 },
-  { x: 136, y: 298, label: "tools", active: true },
+  { x: 136, y: 298, active: true },
   { x: 64, y: 206 },
   { x: 204, y: 52 },
   { x: 362, y: 58 },
-  { x: 372, y: 336, label: "vector", labelLeft: true },
+  { x: 372, y: 336 },
   { x: 42, y: 344 },
   { x: 34, y: 86 },
   { x: 204, y: 372 },
-  { x: 250, y: 158, label: "embed" },
+  { x: 250, y: 158 },
 ];
 
 export const edges: [number, number][] = [
@@ -51,7 +46,6 @@ export const edges: [number, number][] = [
   [1, 6],
 ];
 
-// Arestas por onde "passa sinal".
 export const pulses: [number, number][] = [
   [0, 1],
   [0, 3],

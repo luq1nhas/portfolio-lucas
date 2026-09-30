@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
-import { cn } from "@/lib/cn";
+import { DIAGRAM_NODE_HEIGHT } from "@content/diagrams";
 
 export type ResolvedNode = {
   id: string;
@@ -11,7 +11,6 @@ export type ResolvedNode = {
   y: number;
   w: number;
   kind: "client" | "service" | "ai" | "data" | "external";
-  mine?: boolean;
 };
 
 export type ResolvedEdge = {
@@ -28,11 +27,8 @@ type Props = {
   nodes: ResolvedNode[];
   edges: ResolvedEdge[];
   caption: string;
-  mineLabel: string;
   scrollHint: string;
 };
-
-const NODE_H = 54;
 
 const kindStyle: Record<
   ResolvedNode["kind"],
@@ -45,31 +41,32 @@ const kindStyle: Record<
   external: { stroke: "var(--muted)", fill: "var(--bg)", dash: "4 4" },
 };
 
-/** Ponto onde a reta entre dois centros cruza a borda da caixa de origem. */
-function clip(from: ResolvedNode, to: ResolvedNode) {
-  const dx = to.x - from.x;
-  const dy = to.y - from.y;
-  const hw = from.w / 2 + 4;
-  const hh = NODE_H / 2 + 4;
-  const t = Math.min(
-    dx === 0 ? Infinity : hw / Math.abs(dx),
-    dy === 0 ? Infinity : hh / Math.abs(dy),
-  );
-  return { x: from.x + dx * t, y: from.y + dy * t };
+const EDGE_GAP = 4;
+const LABEL_CHAR_WIDTH = 6.8;
+const LABEL_PADDING = 16;
+
+function labelWidth(label: string) {
+  return label.length * LABEL_CHAR_WIDTH + LABEL_PADDING;
 }
 
-/**
- * Diagrama de arquitetura em SVG. O fluxo principal é destacado em verde.
- * Passar o mouse sobre um componente
- * destaca suas conexões. A legenda descreve o fluxo em texto.
- */
+function edgeStartOnBorder(from: ResolvedNode, to: ResolvedNode) {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const halfWidth = from.w / 2 + EDGE_GAP;
+  const halfHeight = DIAGRAM_NODE_HEIGHT / 2 + EDGE_GAP;
+  const scale = Math.min(
+    dx === 0 ? Infinity : halfWidth / Math.abs(dx),
+    dy === 0 ? Infinity : halfHeight / Math.abs(dy),
+  );
+  return { x: from.x + dx * scale, y: from.y + dy * scale };
+}
+
 export function ArchitectureDiagram({
   width,
   height,
   nodes,
   edges,
   caption,
-  mineLabel,
   scrollHint,
 }: Props) {
   const [hovered, setHovered] = useState<string | null>(null);
@@ -85,11 +82,9 @@ export function ArchitectureDiagram({
         (e.from === hovered && e.to === id) ||
         (e.to === hovered && e.from === id),
     );
-  const hasMine = nodes.some((n) => n.mine);
 
   return (
     <figure className="flex flex-col gap-4">
-      {/* No celular o diagrama rola na horizontal em vez de encolher o texto. */}
       <p aria-hidden className="font-mono text-xs text-muted sm:hidden">
         {scrollHint}
       </p>
@@ -120,10 +115,10 @@ export function ArchitectureDiagram({
           </defs>
 
           {edges.map((edge) => {
-            const a = byId.get(edge.from)!;
-            const b = byId.get(edge.to)!;
-            const start = clip(a, b);
-            const end = clip(b, a);
+            const from = byId.get(edge.from)!;
+            const to = byId.get(edge.to)!;
+            const start = edgeStartOnBorder(from, to);
+            const end = edgeStartOnBorder(to, from);
             const mid = { x: (start.x + end.x) / 2, y: (start.y + end.y) / 2 };
             const key = `${edge.from}-${edge.to}`;
             return (
@@ -152,9 +147,9 @@ export function ArchitectureDiagram({
                 {edge.label && (
                   <g>
                     <rect
-                      x={mid.x - (edge.label.length * 6.2 + 14) / 2}
+                      x={mid.x - labelWidth(edge.label) / 2}
                       y={mid.y - 10}
-                      width={edge.label.length * 6.2 + 14}
+                      width={labelWidth(edge.label)}
                       height={20}
                       rx={10}
                       fill="var(--bg)"
@@ -186,23 +181,11 @@ export function ArchitectureDiagram({
                 className="cursor-default"
                 opacity={nodeActive(node.id) ? 1 : 0.35}
               >
-                {node.mine && (
-                  <rect
-                    x={node.x - node.w / 2 - 5}
-                    y={node.y - NODE_H / 2 - 5}
-                    width={node.w + 10}
-                    height={NODE_H + 10}
-                    rx={14}
-                    fill="none"
-                    stroke="var(--result)"
-                    strokeWidth={1.5}
-                  />
-                )}
                 <rect
                   x={node.x - node.w / 2}
-                  y={node.y - NODE_H / 2}
+                  y={node.y - DIAGRAM_NODE_HEIGHT / 2}
                   width={node.w}
-                  height={NODE_H}
+                  height={DIAGRAM_NODE_HEIGHT}
                   rx={10}
                   fill={style.fill}
                   stroke={style.stroke}
@@ -241,17 +224,6 @@ export function ArchitectureDiagram({
         className="text-sm leading-relaxed text-muted"
       >
         {caption}
-        {hasMine && (
-          <span className="mt-2 flex items-center gap-2 text-xs">
-            <span
-              aria-hidden
-              className={cn(
-                "inline-block h-3 w-5 rounded border-[1.5px] border-result",
-              )}
-            />
-            {mineLabel}
-          </span>
-        )}
       </figcaption>
     </figure>
   );

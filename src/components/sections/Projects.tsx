@@ -4,12 +4,11 @@ import type { Project } from "@content/types";
 import { FeaturedProjectCard } from "@/components/project/FeaturedProjectCard";
 import { FilterableGrid } from "@/components/project/FilterableGrid";
 import { ProjectCard } from "@/components/project/ProjectCard";
-import { WakeDemo } from "@/components/project/WakeDemo";
+import { DemoWarmUp } from "@/components/project/DemoWarmUp";
 import { Section } from "@/components/ui/Section";
 
 const gridClassName = "grid gap-5 md:grid-cols-2 lg:grid-cols-3";
 
-/** Tags usadas por pelo menos 2 projetos da seção viram opções de filtro. */
 async function filterTags(projects: Project[]) {
   const tTags = await getTranslations("Tags");
   const counts = new Map<Project["tags"][number], number>();
@@ -55,7 +54,7 @@ export async function Projects() {
         {featured.map((p) => (
           <div key={p.slug}>
             <FeaturedProjectCard project={p} />
-            {p.demo?.coldStart && <WakeDemo url={p.demo.url} />}
+            {p.demo?.hasColdStart && <DemoWarmUp url={p.demo.url} />}
           </div>
         ))}
         <ProjectGrid projects={rest} />

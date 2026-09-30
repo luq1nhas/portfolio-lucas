@@ -19,12 +19,10 @@ type ContactLink = {
   hrefLang?: string;
 };
 
-/** Conjunto único de contatos: usado no rodapé e na seção Contato. */
 export async function ContactLinks({ className }: { className?: string }) {
   const t = await getTranslations("Contact");
   const locale = await getLocale();
 
-  // Currículo no idioma da página vem primeiro.
   const resumes: ContactLink[] = [
     {
       label: t("resumePt"),

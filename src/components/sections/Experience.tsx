@@ -5,7 +5,6 @@ import { StackChip } from "@/components/ui/Pills";
 import { Section } from "@/components/ui/Section";
 import { Link } from "@/i18n/navigation";
 
-/** Agrupa experiências simultâneas (parallelWith) para exibi-las lado a lado. */
 function groupParallel(items: ExperienceItem[]) {
   const groups: ExperienceItem[][] = [];
   for (const item of items) {
@@ -31,10 +30,12 @@ async function ExperienceCard({ item }: { item: ExperienceItem }) {
           <span className="text-muted"> · {item.org}</span>
         </h3>
         <p className="flex items-center gap-2 font-mono text-xs text-muted">
-          {item.badge && (
-            <StackChip className="text-fg">{item.badge[locale]}</StackChip>
+          {item.employmentType && (
+            <StackChip className="text-fg">
+              {item.employmentType[locale]}
+            </StackChip>
           )}
-          <time dateTime={item.start}>{item.period[locale]}</time>
+          <time dateTime={item.startMonth}>{item.period[locale]}</time>
         </p>
       </header>
       <ul className="mt-4 space-y-1.5 text-sm text-muted">

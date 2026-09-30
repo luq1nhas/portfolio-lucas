@@ -6,7 +6,6 @@ import { Contributions, Projects } from "./Projects";
 import { Stack } from "./Stack";
 import { Testimonial } from "./Testimonial";
 
-/** A landing page inteira. Também é renderizada por trás do painel de um estudo de caso. */
 export function HomeSections() {
   return (
     <>

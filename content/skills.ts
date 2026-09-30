@@ -1,10 +1,5 @@
 import type { SkillTier } from "./types";
 
-/**
- * Stack em níveis de destaque + mapa de evidências (skill → projetos/experiências).
- * Regra do brief: toda skill exibida precisa de pelo menos uma evidência,
- * exceto a categoria "Em aprendizado". Skills sem evidência não são renderizadas.
- */
 export const skillTiers: SkillTier[] = [
   {
     id: "ai",
@@ -21,8 +16,6 @@ export const skillTiers: SkillTier[] = [
           "new-code",
         ],
       },
-      // Componentes internos de projetos de empresas apontam para a experiência,
-      // não para o produto, para não descrever a arquitetura do sistema.
       { label: "Embeddings", evidence: ["new-code"] },
       { label: "Chunking", evidence: ["new-code"] },
       {
@@ -144,8 +137,6 @@ export const skillTiers: SkillTier[] = [
         evidence: ["new-code"],
       },
       { label: "AWS (Cognito, SQS, S3, DynamoDB, SAM)", evidence: ["iron"] },
-      // Nginx está no brief, mas nenhum projeto ou experiência registra o uso.
-      // Fica oculto até existir uma evidência.
       { label: "Nginx", evidence: [] },
       { label: "Jest", evidence: ["sgd-municipios", "iron"] },
       { label: "Vitest", evidence: ["sgd-municipios", "iron"] },
@@ -204,7 +195,6 @@ export const skillTiers: SkillTier[] = [
   {
     id: "learning",
     level: "learning",
-    // {{remover o selo quando o projeto de DevOps estiver publicado}}
     skills: [{ label: "Kubernetes (Minikube)", evidence: [] }],
   },
 ];

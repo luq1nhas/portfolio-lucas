@@ -1,7 +1,5 @@
 import type { Testimonial } from "./types";
 
-// Trechos da carta de recomendação. Por decisão do autor do portfólio,
-// não publicar o telefone do autor nem o motivo do desligamento.
 export const testimonial: Testimonial = {
   author: "Ygor Pereira de Sá",
   role: {

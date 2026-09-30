@@ -14,9 +14,6 @@ export { experience, projects, skillTiers };
 export { testimonial } from "./testimonial";
 export { profile } from "./profile";
 
-/** Placeholders {{NOME}} só aparecem fora de produção. */
-export const showPlaceholders = process.env.NODE_ENV !== "production";
-
 export function localize<T>(value: T | Localized<T>, locale: Locale): T {
   if (
     typeof value === "object" &&
@@ -43,7 +40,6 @@ export type EvidenceRef = {
   id: EvidenceId;
   kind: "project" | "experience";
   label: string;
-  /** Projetos abrem o estudo de caso; experiências rolam até a linha do tempo. */
   href: string;
 };
 
@@ -61,7 +57,6 @@ export function resolveEvidence(id: EvidenceId, locale: Locale): EvidenceRef {
   return { id, kind: "experience", label: exp.org, href: `#exp-${exp.id}` };
 }
 
-/** Skill exibível: tem evidência, ou pertence à categoria "Em aprendizado". */
 export function isShowableSkill(skill: Skill, learning: boolean) {
   return learning || skill.evidence.length > 0;
 }

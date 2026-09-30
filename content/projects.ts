@@ -4,7 +4,6 @@ const MJV = "MJV Technology & Innovation";
 const MJV_PERIOD = { pt: "2025–2026", en: "2025–2026" };
 
 export const projects: Project[] = [
-  // ── Meus projetos ─────────────────────────────────────────────────────────
   {
     slug: "nexus",
     section: "personal",
@@ -28,7 +27,7 @@ export const projects: Project[] = [
       "Clerk",
       "Three.js",
     ],
-    responsibilities: {
+    cardResponsibilities: {
       pt: [
         "Desenvolvi o projeto completo: frontend, backend e integração com IA.",
         "Criei três agentes especializados (Plano de Estudos, Resumos e Chat Geral), com conversas por thread e contexto preservado.",
@@ -75,11 +74,10 @@ export const projects: Project[] = [
         en: "The whole study workflow in a single interface, accepting PDF, DOCX, TXT and images (up to 10 files of 10 MB each), with OCR applied only when needed.",
       },
     },
-    demo: { url: "https://nexus-1-yc96.onrender.com/", coldStart: true },
-    source: { kind: "interview" },
+    demo: { url: "https://nexus-1-yc96.onrender.com/", hasColdStart: true },
+    source: { kind: "privateOrganization" },
   },
 
-  // ── Contribuições ─────────────────────────────────────────────────────────
   {
     slug: "sgd-municipios",
     section: "contribution",
@@ -110,7 +108,7 @@ export const projects: Project[] = [
       "GitHub Actions",
       "Playwright",
     ],
-    responsibilities: {
+    cardResponsibilities: {
       pt: [
         "Desenvolvi funcionalidades de ponta a ponta, do backend em NestJS ao frontend em React.",
         "Implementei o isolamento de dados entre municípios, com testes automatizados que o garantem.",
@@ -180,7 +178,7 @@ export const projects: Project[] = [
         pt: "Construir uma plataforma multi-tenant de processo eletrônico com isolamento total entre municípios.",
         en: "Build a multi-tenant electronic case management platform with full isolation between municipalities.",
       },
-      action: "responsibilities",
+      action: "sameAsFullResponsibilities",
       result: {
         pt: "Processo eletrônico completo para prefeituras, com isolamento de dados entre municípios coberto por testes automatizados e entregas contínuas via CI/CD.",
         en: "A complete electronic case workflow for municipalities, with data isolation between them covered by automated tests and continuous delivery through CI/CD.",
@@ -215,7 +213,7 @@ export const projects: Project[] = [
       "AWS (Cognito, SQS, S3, SAM)",
       "Docker",
     ],
-    responsibilities: {
+    cardResponsibilities: {
       pt: [
         "Desenvolvi novas funcionalidades na plataforma como Desenvolvedor Full Stack.",
         "Investiguei e corrigi bugs.",
@@ -273,7 +271,7 @@ export const projects: Project[] = [
       en: "An AI agent that uses manuals and PDFs as its knowledge base and connects to payment terminals to speed up software integrations.",
     },
     stack: ["NestJS", "Azure AI", "RAG", "React"],
-    responsibilities: {
+    cardResponsibilities: {
       pt: [
         "Desenhei e testei os system prompts do agente.",
         "Validei a base de conhecimento (manuais e PDFs).",
@@ -283,7 +281,7 @@ export const projects: Project[] = [
         "Validated the knowledge base (manuals and PDFs).",
       ],
     },
-    result: {
+    highlightedResult: {
       pt: "Integrações reduzidas de 8 semanas para 1.",
       en: "Integrations cut from 8 weeks to 1.",
     },
@@ -319,7 +317,7 @@ export const projects: Project[] = [
       en: "An AI agent that analyzes documents, meetings and presentations and produces Action Plans, Risks and Gaps to speed up internal audits.",
     },
     stack: ["NestJS", "Azure AI", "RAG", "React"],
-    responsibilities: {
+    cardResponsibilities: {
       pt: [
         "Fui responsável pelo desenho e pela implementação do agente.",
         "Construí o pipeline de RAG sobre documentos, reuniões e apresentações.",
@@ -329,7 +327,7 @@ export const projects: Project[] = [
         "Built the RAG pipeline over documents, meetings and presentations.",
       ],
     },
-    result: {
+    highlightedResult: {
       pt: "80% de precisão nas análises, segundo os critérios de áreas e riscos definidos em reuniões.",
       en: "80% accuracy in its analyses, measured against the area and risk criteria agreed in meetings.",
     },
@@ -368,7 +366,7 @@ export const projects: Project[] = [
       en: "An AI agent for looking up laws and collective bargaining agreements across different sectors, using a crawler and semantic search.",
     },
     stack: ["NestJS", "Azure AI", "RAG", "React"],
-    responsibilities: {
+    cardResponsibilities: {
       pt: [
         "Construí as telas da aplicação.",
         "Fiz o design da interface.",
@@ -421,7 +419,7 @@ export const projects: Project[] = [
       "Swagger",
       "Socket.IO",
     ],
-    responsibilities: {
+    cardResponsibilities: {
       pt: [
         "Implementei processamento em lote com filas e melhorias de performance.",
         "Desenvolvi relatórios e a integração entre frontend e backend.",
@@ -467,7 +465,7 @@ export const projects: Project[] = [
       en: "A full Angular rewrite of a corporate business management system, focused on performance and a completely redesigned interface.",
     },
     stack: ["Angular", "TypeScript", "Bootstrap"],
-    responsibilities: {
+    cardResponsibilities: {
       pt: [
         "Desenvolvi telas da nova versão do sistema.",
         "Implementei otimizações de performance no frontend.",

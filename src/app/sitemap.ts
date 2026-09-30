@@ -3,7 +3,6 @@ import { projects } from "@content/index";
 import { htmlLang, routing } from "@/i18n/routing";
 import { siteUrl } from "@/lib/site";
 
-// Cada página aparece em pt e en, com as alternativas de idioma (hreflang).
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = ["", ...projects.map((p) => `/cases/${p.slug}`)];
 

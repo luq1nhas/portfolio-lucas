@@ -4,22 +4,24 @@ import { Check, Copy } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
+const COPIED_FEEDBACK_MS = 2000;
+
 export function CopyEmailButton({ email }: { email: string }) {
   const t = useTranslations("Contact");
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!copied) return;
-    const id = setTimeout(() => setCopied(false), 2000);
-    return () => clearTimeout(id);
+    const timeout = setTimeout(() => setCopied(false), COPIED_FEEDBACK_MS);
+    return () => clearTimeout(timeout);
   }, [copied]);
 
-  async function copy() {
+  async function copyEmail() {
     try {
       await navigator.clipboard.writeText(email);
       setCopied(true);
     } catch {
-      // Sem permissão de clipboard: o link mailto continua disponível ao lado.
+      setCopied(false);
     }
   }
 
@@ -27,7 +29,7 @@ export function CopyEmailButton({ email }: { email: string }) {
     <>
       <button
         type="button"
-        onClick={copy}
+        onClick={copyEmail}
         className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold hover:border-fg"
       >
         {copied ? (

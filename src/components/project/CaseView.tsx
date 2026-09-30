@@ -3,7 +3,6 @@ import type { Project } from "@content/types";
 import { CaseDialog } from "./CaseDialog";
 import { CaseStudy } from "./CaseStudy";
 
-/** Estudo de caso dentro do painel. Usado pela rota interceptada e pelo acesso direto. */
 export async function CaseView({
   project,
   mode,

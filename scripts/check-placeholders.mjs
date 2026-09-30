@@ -1,5 +1,3 @@
-// Garante que nenhum placeholder {{NOME}} chegou ao HTML de produção.
-// Roda depois de `next build`, sobre as páginas pré-renderizadas.
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 

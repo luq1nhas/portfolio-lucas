@@ -92,13 +92,11 @@
     "platformNote": "Características da plataforma e do time, não responsabilidades individuais.",
     "actionSeeBelow": "Detalhado em “O que eu fiz”, abaixo.",
     "architecture": "Arquitetura",
-    "mine": "Minha atuação",
     "diagramScroll": "Arraste para ver o diagrama completo →"
   },
   "Experience": {
     "parallel": "Em paralelo",
-    "relatedProjects": "Projetos",
-    "current": "Atual"
+    "relatedProjects": "Projetos"
   },
   "Stack": {
     "tier_ai": "Especialidade: IA aplicada",
@@ -118,7 +116,6 @@
     "translated": "Tradução livre do original em português."
   },
   "Contact": {
-    "email": "E-mail",
     "whatsapp": "WhatsApp",
     "linkedin": "LinkedIn",
     "github": "GitHub",

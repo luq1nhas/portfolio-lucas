@@ -1,9 +1,8 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
-import { isPending, type Project } from "@content/types";
+import type { Project } from "@content/types";
 import { CategoryTag, StackChip } from "@/components/ui/Pills";
-import { Placeholder } from "@/components/ui/Placeholder";
-import { diagrams } from "@content/diagrams";
+import { DIAGRAM_NODE_WIDTH, diagrams } from "@content/diagrams";
 import { localize } from "@content/index";
 import { ArchitectureDiagram } from "./ArchitectureDiagram";
 import { ProjectActions } from "./ProjectActions";
@@ -20,7 +19,6 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
-/** Estudo de caso completo (método STAR), exibido no painel de detalhes. */
 export async function CaseStudy({
   project,
   titleId,
@@ -34,7 +32,7 @@ export async function CaseStudy({
   const locale = await getLocale();
 
   const responsibilities = (project.fullResponsibilities ??
-    project.responsibilities)[locale];
+    project.cardResponsibilities)[locale];
   const { star } = project;
   const diagram = diagrams[project.slug];
 
@@ -45,7 +43,7 @@ export async function CaseStudy({
       key: "action",
       label: t("action"),
       body:
-        star.action === "responsibilities"
+        star.action === "sameAsFullResponsibilities"
           ? t("actionSeeBelow")
           : star.action[locale],
     },
@@ -94,18 +92,16 @@ export async function CaseStudy({
         </div>
       </header>
 
-      {/* Só projetos pessoais têm diagrama (arquitetura de empresa é confidencial). */}
       {diagram && (
         <Block title={t("architecture")}>
           <ArchitectureDiagram
             width={diagram.width}
             height={diagram.height}
             caption={diagram.caption[locale]}
-            mineLabel={t("mine")}
             scrollHint={t("diagramScroll")}
             nodes={diagram.nodes.map((n) => ({
               ...n,
-              w: n.w ?? 170,
+              w: n.w ?? DIAGRAM_NODE_WIDTH,
               label: localize(n.label, locale),
               sub: n.sub && localize(n.sub, locale),
             }))}
@@ -141,16 +137,6 @@ export async function CaseStudy({
                 }
               >
                 {step.body}
-                {step.key === "result" && star.resultMetric && (
-                  <>
-                    {" "}
-                    {isPending(star.resultMetric) ? (
-                      <Placeholder value={star.resultMetric} />
-                    ) : (
-                      star.resultMetric[locale]
-                    )}
-                  </>
-                )}
               </dd>
             </div>
           ))}

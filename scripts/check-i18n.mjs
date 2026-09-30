@@ -1,5 +1,3 @@
-// Garante que pt.json e en.json têm as mesmas chaves e as mesmas variáveis/tags
-// em cada texto ({count}, <em>…). O TypeScript já cobre o conteúdo em content/.
 import { readFileSync } from "node:fs";
 
 const locales = ["pt", "en"];

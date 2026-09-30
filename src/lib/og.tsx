@@ -3,11 +3,8 @@ import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { createTranslator, hasLocale, type Messages } from "next-intl";
 import type { ReactNode } from "react";
-import { edges, nodes, pulses } from "@/components/hero/network";
+import { edges, nodes, pulses } from "./network";
 import { routing, type Locale } from "@/i18n/routing";
-
-// Imagens de compartilhamento (LinkedIn, WhatsApp…), geradas no build por idioma.
-// O gerador (Satori) não lê CSS: as cores são as do tema escuro, em valores literais.
 
 export const ogSize = { width: 1200, height: 630 };
 export const ogContentType = "image/png";
@@ -54,7 +51,6 @@ async function loadFonts() {
   ];
 }
 
-/** A mesma rede do hero, em SVG puro. */
 function Network({ size }: { size: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 400 400">
@@ -86,7 +82,7 @@ function Network({ size }: { size: number }) {
           key={i}
           cx={n.x}
           cy={n.y}
-          r={i === 0 ? 8 : n.active ? 5.5 : 4}
+          r={n.hub ? 8 : n.active ? 5.5 : 4}
           fill={n.active ? ogColors.signal : ogColors.surface}
           stroke={n.active ? ogColors.signal : ogColors.muted}
           strokeWidth={1.2}
@@ -97,7 +93,6 @@ function Network({ size }: { size: number }) {
 }
 
 type OgProps = {
-  /** Linha pequena acima do título (selo de disponibilidade ou "Estudo de caso"). */
   kicker: ReactNode;
   title: string;
   subtitle: ReactNode;
@@ -252,10 +247,6 @@ export async function renderOgImage({
   );
 }
 
-/**
- * Texto com trechos marcados (<em>, <result>…) como palavras soltas num flex com quebra.
- * No Satori, misturar trechos de estilos diferentes num mesmo bloco quebra mal as linhas.
- */
 export function RichWords({
   raw,
   colors,
@@ -265,8 +256,6 @@ export function RichWords({
   colors: Record<string, string>;
   gap: number;
 }) {
-  // Cada "palavra" é um grupo de trechos sem espaço entre si, para que a
-  // pontuação logo após um trecho marcado ("…para 1</result>.") fique colada.
   const words: { text: string; color?: string }[][] = [];
   let glued = false;
   for (const part of raw.split(/(<\w+>.*?<\/\w+>)/)) {
@@ -303,10 +292,6 @@ export function RichWords({
   );
 }
 
-/**
- * Tradutor sem contexto de requisição: as imagens OG (e seus metadados) são
- * geradas no build, onde o getTranslations do next-intl não pode ler headers().
- */
 export async function ogTranslator<N extends keyof Messages>(
   locale: Locale,
   namespace: N,
@@ -316,7 +301,6 @@ export async function ogTranslator<N extends keyof Messages>(
   return createTranslator({ locale, messages, namespace });
 }
 
-/** Idioma válido a partir de um param possivelmente ausente. */
 export function ogLocale(value: string | undefined): Locale {
   return hasLocale(routing.locales, value) ? value : routing.defaultLocale;
 }

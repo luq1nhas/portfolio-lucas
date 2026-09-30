@@ -1,10 +1,7 @@
 @import "tailwindcss";
 
-/* O tema vem de data-theme em <html> (definido antes da pintura por ThemeScript). */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* ── Tokens: "rede de agentes" ─────────────────────────────────────────────
-   signal = IA / interação · result = métricas e resultados · tag = categorias */
 :root,
 [data-theme="dark"] {
   --bg: #0a0c10;
@@ -83,7 +80,6 @@
   }
 }
 
-/* Painel aberto: a página por trás não rola. */
 html:has(dialog[open]) {
   overflow: hidden;
 }
