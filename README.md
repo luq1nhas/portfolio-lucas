@@ -2,7 +2,7 @@
 
 Landing page de portfólio de **Lucas Vieira**, Desenvolvedor Full Stack especializado em IA aplicada (agentes, RAG e LLMs em produção).
 
-> 🚧 Em construção, por etapas: **estrutura** ✅ → **conteúdo** ✅ → **i18n** ✅ → interatividade → otimização.
+> 🚧 Em construção, por etapas: **estrutura** ✅ → **conteúdo** ✅ → **i18n** ✅ → **interatividade** ✅ → otimização.
 
 ## Stack
 
@@ -18,7 +18,8 @@ Landing page de portfólio de **Lucas Vieira**, Desenvolvedor Full Stack especia
 ## Arquitetura
 
 ```
-content/            dados tipados: projetos, experiências, stack (com mapa de evidências), depoimento
+content/            dados tipados: projetos, experiências, stack (com mapa de evidências),
+                    diagramas de arquitetura e depoimento
 messages/           textos de interface por idioma (pt.json, en.json)
 scripts/            verificações de build (placeholders)
 src/
@@ -44,6 +45,9 @@ src/
 - **Conteúdo separado da interface.** Projetos, experiências e stack ficam em `content/` como dados tipados. Os textos de interface ficam em `messages/`. Uma chave de tradução inexistente é erro de compilação (veja `src/i18n/global.d.ts`).
 - **Internacionalização.** Idioma inicial pelo navegador (`Accept-Language`), preferência lembrada em cookie por 1 ano e troca sem recarregar. Cada página tem hreflang e `x-default`, e o sitemap lista as duas versões. `check:i18n` falha a CI se `pt.json` e `en.json` divergirem em chaves ou variáveis; no conteúdo, o tipo `Localized<T>` obriga as duas línguas.
 - **Imagens de compartilhamento.** Uma imagem Open Graph por idioma e por estudo de caso, gerada no build com `next/og`, na fonte Geist e com a mesma rede de agentes do hero (`src/components/hero/network.ts`).
+- **Interatividade sem custo para quem não precisa.** A cena 3D do hero (React Three Fiber) só carrega em desktop com WebGL, sem movimento reduzido, sem economia de dados e em aparelhos com ≥ 4 núcleos; o three.js vem num chunk separado, baixado depois do carregamento. Nos demais casos fica a mesma rede em SVG, que também é o primeiro quadro. A cena pausa fora da tela.
+- **Animações que não escondem conteúdo.** As entradas das seções usam CSS + IntersectionObserver e só ocultam algo quando há JS (classe `js` aplicada antes da pintura); o hero nunca é animado. Motion cuida do filtro, do painel de evidências e da trilha da linha do tempo, sempre respeitando `prefers-reduced-motion`.
+- **Diagramas de arquitetura como dados.** `content/diagrams.ts` descreve componentes e fluxos; o SVG anima o fluxo principal e destaca as conexões no hover. Onde a atuação foi parcial, as partes feitas por mim ficam marcadas.
 - **Tema sem "piscar".** Um script inline aplica o tema salvo antes da primeira pintura. O tema padrão é o escuro.
 - **Renderização estática.** As duas versões de idioma são pré-renderizadas no build.
 

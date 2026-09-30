@@ -4,6 +4,7 @@ import type { Experience as ExperienceItem } from "@content/types";
 import { StackChip } from "@/components/ui/Pills";
 import { Section } from "@/components/ui/Section";
 import { Link } from "@/i18n/navigation";
+import { TimelineRail } from "./TimelineRail";
 
 /** Agrupa experiências simultâneas (parallelWith) para exibi-las lado a lado. */
 function groupParallel(items: ExperienceItem[]) {
@@ -75,33 +76,36 @@ export async function Experience() {
 
   return (
     <Section id="experience" title={tSections("experience")}>
-      <ol className="relative ml-1.5 border-l border-border">
-        {groupParallel(experience).map((group) => (
-          <li
-            key={group[0].id}
-            className="relative pb-10 pl-6 last:pb-0 sm:pl-10"
-          >
-            <span
-              aria-hidden
-              className="absolute top-6 -left-[5px] size-[9px] rounded-full border border-signal bg-bg"
-            />
-            {group.length > 1 && (
-              <p className="mb-3 font-mono text-xs tracking-wider text-signal uppercase">
-                {t("parallel")}
-              </p>
-            )}
-            <div
-              className={
-                group.length > 1 ? "grid gap-4 lg:grid-cols-2" : undefined
-              }
+      <div className="relative ml-1.5">
+        <TimelineRail />
+        <ol className="relative">
+          {groupParallel(experience).map((group) => (
+            <li
+              key={group[0].id}
+              className="relative pb-10 pl-6 last:pb-0 sm:pl-10"
             >
-              {group.map((item) => (
-                <ExperienceCard key={item.id} item={item} />
-              ))}
-            </div>
-          </li>
-        ))}
-      </ol>
+              <span
+                aria-hidden
+                className="absolute top-6 -left-[5px] size-[9px] rounded-full border border-signal bg-bg"
+              />
+              {group.length > 1 && (
+                <p className="mb-3 font-mono text-xs tracking-wider text-signal uppercase">
+                  {t("parallel")}
+                </p>
+              )}
+              <div
+                className={
+                  group.length > 1 ? "grid gap-4 lg:grid-cols-2" : undefined
+                }
+              >
+                {group.map((item) => (
+                  <ExperienceCard key={item.id} item={item} />
+                ))}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
     </Section>
   );
 }

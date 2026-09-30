@@ -2,6 +2,7 @@ import { ArrowRight, MapPin } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { profile } from "@content/profile";
 import { AgentNetworkFallback } from "./AgentNetworkFallback";
+import { HeroVisual } from "./HeroVisual";
 
 export async function Hero() {
   const t = await getTranslations("Hero");
@@ -74,7 +75,9 @@ export async function Hero() {
 
         {/* No celular a rede fica atrás do texto; o texto vem sempre primeiro no DOM. */}
         <div className="absolute inset-0 -z-10 opacity-25 lg:static lg:z-auto lg:opacity-100">
-          <AgentNetworkFallback className="mx-auto h-full w-full max-w-[480px] lg:h-auto" />
+          <HeroVisual className="mx-auto h-full w-full max-w-[480px] lg:aspect-square lg:h-auto">
+            <AgentNetworkFallback className="h-full w-full" />
+          </HeroVisual>
         </div>
       </div>
     </section>

@@ -3,6 +3,9 @@ import type { ReactNode } from "react";
 import { isPending, type Project } from "@content/types";
 import { CategoryTag, StackChip } from "@/components/ui/Pills";
 import { Placeholder } from "@/components/ui/Placeholder";
+import { diagrams } from "@content/diagrams";
+import { localize } from "@content/index";
+import { ArchitectureDiagram } from "./ArchitectureDiagram";
 import { ProjectActions } from "./ProjectActions";
 import { SourceBadge } from "./SourceBadge";
 
@@ -33,6 +36,8 @@ export async function CaseStudy({
   const responsibilities = (project.fullResponsibilities ??
     project.responsibilities)[locale];
   const { star } = project;
+  const diagram = diagrams[project.slug];
+
   const steps = [
     { key: "situation", label: t("situation"), body: star.situation[locale] },
     { key: "task", label: t("task"), body: star.task[locale] },
@@ -88,6 +93,26 @@ export async function CaseStudy({
           {project.demo && <ProjectActions project={project} demoOnly />}
         </div>
       </header>
+
+      <Block title={t("architecture")}>
+        <ArchitectureDiagram
+          width={diagram.width}
+          height={diagram.height}
+          caption={diagram.caption[locale]}
+          mineLabel={t("mine")}
+          scrollHint={t("diagramScroll")}
+          nodes={diagram.nodes.map((n) => ({
+            ...n,
+            w: n.w ?? 170,
+            label: localize(n.label, locale),
+            sub: n.sub && localize(n.sub, locale),
+          }))}
+          edges={diagram.edges.map((e) => ({
+            ...e,
+            label: e.label && localize(e.label, locale),
+          }))}
+        />
+      </Block>
 
       <Block title={t("starLabel")}>
         <dl className="grid gap-6">

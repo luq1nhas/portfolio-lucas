@@ -92,7 +92,10 @@
     "responsibilities": "O que eu fiz",
     "platformHighlights": "Destaques da plataforma",
     "platformNote": "Características da plataforma e do time, não responsabilidades individuais.",
-    "actionSeeBelow": "Detalhado em “O que eu fiz”, abaixo."
+    "actionSeeBelow": "Detalhado em “O que eu fiz”, abaixo.",
+    "architecture": "Arquitetura",
+    "mine": "Minha atuação",
+    "diagramScroll": "Arraste para ver o diagrama completo →"
   },
   "Experience": {
     "parallel": "Em paralelo",

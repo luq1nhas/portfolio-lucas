@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { useCallback, useSyncExternalStore, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
@@ -84,11 +85,22 @@ export function FilterableGrid({ items, tags, param, gridClassName }: Props) {
         </div>
       )}
       <div className={gridClassName}>
-        {visible.map((item) => (
-          <div key={item.id} className="contents">
-            {item.node}
-          </div>
-        ))}
+        {/* Cada item é um subgrid de 7 linhas (como o card), para manter o alinhamento. */}
+        <AnimatePresence mode="popLayout" initial={false}>
+          {visible.map((item) => (
+            <motion.div
+              key={item.id}
+              layout
+              initial={{ opacity: 0, scale: 0.97 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.97 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="row-span-7 grid grid-rows-subgrid gap-y-4"
+            >
+              {item.node}
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </>
   );

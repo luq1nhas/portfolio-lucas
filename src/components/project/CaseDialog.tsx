@@ -2,7 +2,14 @@
 
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, type ReactNode } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
+import { cn } from "@/lib/cn";
 
 type Props = {
   children: ReactNode;
@@ -29,17 +36,19 @@ export function CaseDialog({
 }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
   const router = useRouter();
+  const [closing, setClosing] = useState(false);
 
   useEffect(() => {
     const dialog = ref.current;
     if (dialog && !dialog.open) dialog.showModal();
   }, []);
 
-  const close = useCallback(() => {
+  const finishClose = useCallback(() => {
     if (mode === "intercepted") {
       router.back();
     } else {
       ref.current?.close();
+      setClosing(false);
       window.history.replaceState(window.history.state, "", homeHref);
     }
     // Devolve o foco ao botão "Ver detalhes" do card de origem.
@@ -52,6 +61,17 @@ export function CaseDialog({
     });
   }, [mode, router, homeHref, slug]);
 
+  // Anima a saída (fade + deslize) antes de fechar; com movimento reduzido, fecha na hora.
+  const close = useCallback(() => {
+    if (closing) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      finishClose();
+      return;
+    }
+    setClosing(true);
+    setTimeout(finishClose, 180);
+  }, [closing, finishClose]);
+
   return (
     <dialog
       ref={ref}
@@ -63,7 +83,11 @@ export function CaseDialog({
       onClick={(e) => {
         if (e.target === ref.current) close(); // clique no fundo escurecido
       }}
-      className="m-0 h-dvh max-h-none w-full max-w-none bg-transparent text-fg opacity-100 transition-[opacity,translate] duration-300 backdrop:bg-black/60 backdrop:backdrop-blur-sm motion-reduce:transition-none sm:m-auto sm:h-[min(92dvh,960px)] sm:max-w-3xl starting:open:translate-y-4 starting:open:opacity-0"
+      data-closing={closing || undefined}
+      className={cn(
+        "m-0 h-dvh max-h-none w-full max-w-none bg-transparent text-fg transition-[opacity,translate] duration-300 backdrop:bg-black/60 backdrop:backdrop-blur-sm motion-reduce:transition-none sm:m-auto sm:h-[min(92dvh,960px)] sm:max-w-3xl starting:open:translate-y-4 starting:open:opacity-0",
+        closing ? "translate-y-4 opacity-0" : "opacity-100",
+      )}
     >
       <div className="flex h-full flex-col overflow-hidden border-border bg-bg sm:rounded-2xl sm:border">
         <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-3 sm:px-8">

@@ -92,7 +92,10 @@
     "responsibilities": "What I did",
     "platformHighlights": "Platform highlights",
     "platformNote": "Features of the platform and the team, not individual responsibilities.",
-    "actionSeeBelow": "Detailed under “What I did” below."
+    "actionSeeBelow": "Detailed under “What I did” below.",
+    "architecture": "Architecture",
+    "mine": "My part",
+    "diagramScroll": "Swipe to see the full diagram →"
   },
   "Experience": {
     "parallel": "In parallel",
